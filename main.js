@@ -1,6 +1,7 @@
 // Entry point. Checkpoint 3 (in progress): location search wired to the forecast; full UI wiring comes later.
 import { fetchForecast } from './weather.js';
 import { searchLocations } from './geocode.js';
+import { getDeviceLocation } from './device-location.js';
 
 const form = document.getElementById('search-form');
 const input = document.getElementById('location-input');
@@ -28,6 +29,20 @@ form.addEventListener('submit', async (event) => {
     selectLocation(matches[0]); // single match: no choice to make
   } else {
     showChoices(matches);
+  }
+});
+
+document.getElementById('device-location-btn').addEventListener('click', async () => {
+  hideFeedback();
+  showStatus('Finding your location…');
+  try {
+    selectLocation(await getDeviceLocation());
+  } catch (error) {
+    // Denied or unavailable: explain once and hand control back to manual search (no retry loop, R15)
+    showStatus(error.reason === 'denied'
+      ? 'Location permission was denied. Search for a city or zip code instead.'
+      : "Couldn't determine your location. Search for a city or zip code instead.");
+    input.focus();
   }
 });
 
