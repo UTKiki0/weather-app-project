@@ -1,4 +1,4 @@
-/* Phone-first layout (single column). Laptop two-column layout is added in checkpoint 2. */
+/* Phone-first layout (single column); the laptop two-column layout is the media query at the bottom. */
 
 :root {
   --bg-sunny: #cfe9ff;
@@ -19,7 +19,7 @@ body {
   background: var(--panel);
 }
 
-.visually-hidden {
+.visually-hidden, .label {
   position: absolute;
   width: 1px; height: 1px;
   overflow: hidden;
@@ -27,10 +27,12 @@ body {
   white-space: nowrap;
 }
 
-/* Page frame: top bar, stage fills the middle, day strip pinned to the bottom (thumb reach) */
+/* Page frame (phone): top bar, stage fills the middle, day strip pinned to the bottom (thumb reach).
+   The pill shares the stage's grid cell so it overlays the stage's bottom-left corner. */
 .app {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas: "top" "stage" "strip";
   height: 100dvh;
   max-width: 480px;
   margin: 0 auto;
@@ -38,6 +40,7 @@ body {
 
 /* ---- Top bar ---- */
 .top-bar {
+  grid-area: top;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -84,8 +87,8 @@ body {
 
 /* ---- Stage ---- */
 .stage {
+  grid-area: stage;
   position: relative;
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,25 +111,7 @@ body {
   min-height: 0;
 }
 
-/* Info pill: bottom-left of stage */
-.pill {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 12px;
-  max-width: calc(100% - 12px - var(--tap) - 24px);
-  margin: 0;
-  padding: 8px 14px;
-  list-style: none;
-  background: var(--panel);
-  border: 2px solid var(--ink);
-  border-radius: 20px;
-  font-size: 0.95rem;
-}
-
-/* Customize button: bottom-right of stage */
+/* Customize button: bottom-right of stage on phone */
 .customize-btn {
   position: absolute;
   right: 12px;
@@ -135,13 +120,44 @@ body {
   border: 2px solid var(--ink);
 }
 
+/* ---- Info pill: bottom-left of stage on phone ---- */
+.pill {
+  grid-area: stage;
+  align-self: end;
+  justify-self: start;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  max-width: calc(100% - 12px - var(--tap) - 24px);
+  margin: 0 0 12px 12px;
+  padding: 8px 14px;
+  list-style: none;
+  background: var(--panel);
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  font-size: 0.95rem;
+}
+
 /* ---- Day strip ---- */
 .day-strip {
+  grid-area: strip;
+  padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--border);
+}
+
+.strip-title {
+  position: absolute; /* screen-reader-only heading on phone; visible on laptop */
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: 0;
+}
+
+.days {
   display: flex;
   justify-content: space-between;
   gap: 2px;
-  padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
-  border-top: 1px solid var(--border);
 }
 
 .day {
@@ -162,3 +178,55 @@ body {
 .day-icon { font-size: 1.4rem; line-height: 1.4; }
 .day-num { font-weight: 600; }
 .day[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+
+/* ---- Laptop: two columns (stage left; search, details, upcoming days right) ---- */
+@media (min-width: 900px) {
+  .app {
+    max-width: none;
+    grid-template-columns: 3fr 2fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      "stage top"
+      "stage pill"
+      "stage strip";
+  }
+
+  .top-bar { border-bottom: 0; padding: 16px 24px; }
+
+  /* Customize button moves to the stage's top-right, as in the sketch */
+  .customize-btn { top: 16px; bottom: auto; right: 16px; }
+
+  .stage-header { align-self: flex-start; text-align: left; padding: 24px; }
+  .character { font-size: 14rem; }
+
+  /* Pill becomes a vertical, fully labeled list in the right column */
+  .pill {
+    grid-area: pill;
+    align-self: start;
+    justify-self: stretch;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    max-width: none;
+    margin: 8px 24px;
+    padding: 16px 20px;
+    gap: 12px;
+    font-size: 1.1rem;
+  }
+  .label {
+    position: static;
+    width: auto; height: auto;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+
+  .day-strip { padding: 16px 24px; }
+  .strip-title {
+    position: static;
+    width: auto; height: auto;
+    overflow: visible;
+    clip: auto;
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+  }
+}

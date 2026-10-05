@@ -37,20 +37,24 @@
       <!-- Placeholder until character art exists in assets/ -->
       <div class="character" id="character" role="img" aria-label="Character wearing a warm-weather outfit">🧍</div>
 
-      <ul class="pill" id="pill" aria-label="Weather details">
-        <li><span aria-hidden="true">💧</span> <span class="visually-hidden">Chance of rain</span>30%</li>
-        <li><span aria-hidden="true">💨</span> <span class="visually-hidden">Wind speed</span>10 mph</li>
-        <li><span aria-hidden="true">☀️</span><span class="visually-hidden">Sunscreen reminder</span></li>
-        <li><span aria-hidden="true">🥤</span><span class="visually-hidden">Extra hydration reminder</span></li>
-      </ul>
-
       <button type="button" class="icon-btn customize-btn" id="customize-btn" aria-label="Change outfit style">
         <img src="assets/ui/shirt.svg" alt="">
       </button>
     </section>
 
+    <!-- Info pill: overlays the stage on phone, sits in the right column on laptop.
+         Text labels are screen-reader-only on phone and visible on laptop. -->
+    <ul class="pill" id="pill" aria-label="Weather details">
+      <li><span aria-hidden="true">💧</span> 30% <span class="label">chance of rain</span></li>
+      <li><span aria-hidden="true">💨</span> 10 mph <span class="label">wind</span></li>
+      <li><span aria-hidden="true">☀️</span> <span class="label">Sunscreen reminder</span></li>
+      <li><span aria-hidden="true">🥤</span> <span class="label">Extra hydration reminder</span></li>
+    </ul>
+
     <!-- 7-day strip: today + 6 days, doubles as the date picker -->
-    <nav class="day-strip" id="day-strip" aria-label="Select a day">
+    <nav class="day-strip" id="day-strip" aria-labelledby="day-strip-title">
+      <h2 class="strip-title" id="day-strip-title">Upcoming days</h2>
+      <div class="days">
       <button type="button" class="day" aria-pressed="true"><span class="day-icon" aria-hidden="true">☀️</span><span class="day-num">5</span><span class="visually-hidden">Today</span></button>
       <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">☀️</span><span class="day-num">6</span></button>
       <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">⛅</span><span class="day-num">7</span></button>
@@ -58,6 +62,7 @@
       <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">🌧️</span><span class="day-num">9</span></button>
       <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">💨</span><span class="day-num">10</span></button>
       <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">❄️</span><span class="day-num">11</span></button>
+      </div>
     </nav>
   </main>
 
