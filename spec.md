@@ -128,6 +128,8 @@ Define the weather inputs, recommendation categories, coded rules, and shared st
 
 **Weather inputs** (from Open-Meteo, per selected location + date): actual temperature (°F), precipitation probability (%), UV index, wind speed (mph), weather code (for condition icon/background).
 
+**Daytime reduction.** Open-Meteo hourly values are reduced to one value per day over **daytime hours, 8:00–20:00 local time at the selected location** (hourly data is used internally only; the UI stays daily): actual temperature = average of the daytime hours; precipitation probability, wind speed, and UV index = maximum over the daytime hours; weather code = the daily weather code from Open-Meteo's daily endpoint. Every threshold below is evaluated on these reduced values.
+
 **Effective temperature** (used only for outfit category): `effectiveTemp = actualTemp - 5°F` if wind speed ≥ 15 mph OR precipitation probability ≥ 50%, otherwise `effectiveTemp = actualTemp`. (This -5°F adjustment is separate from the Windy reminder's own 25 mph threshold below — a day can trigger the effective-temperature drop without triggering the Windy reminder, and vice versa.)
 
 **Outfit category** (by effective temperature, per `research.md`):
@@ -185,7 +187,7 @@ Record features intentionally excluded from this project.
 - User accounts or login — no authentication; the saved location and variation choices live in local browser storage only.
 - Metric units (°C, km/h) — the app displays Fahrenheit/mph only; no unit toggle.
 - Past-date weather — only today and the next 6 forecast days are selectable; no historical weather lookup.
-- Hourly forecast detail — recommendations are daily, not broken down by hour.
+- Hourly forecast detail — recommendations are daily, not broken down by hour. (Hourly data is used internally to compute the daytime values above; no hourly view is shown.)
 - General character/avatar customization — the customization picker only lets the user choose among the current weather category's outfit variations (R9); no free-form color/accessory/cosmetic customization unrelated to weather.
 - Social sharing or exporting the character/recommendation (e.g. share to social media, download image).
 - Push notifications or reminders outside the app (e.g. a daily alert to check the app) — reminders only display while the app is open.
@@ -193,6 +195,8 @@ Record features intentionally excluded from this project.
 ## Revisions
 
 After implementation or testing, record requirement changes and the evidence that prompted them. Update the screen drawings when a material layout or interaction changes.
+
+- 2026-10-05 (build, checkpoint 3): Weather inputs are reduced over daytime hours (8:00–20:00 local) instead of using daily highs, because the outfit applies to the hours the user is out. Temperature is the daytime average; precipitation, wind, and UV are daytime maxima. Proposed by the Agent, chosen by the Developer. **Pending Developer review of the edited text.**
 
 ## Approval
 
