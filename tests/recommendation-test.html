@@ -1,0 +1,166 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Recommendation tests</title>
+<!-- Open via the dev server (http://localhost:8000/tests/recommendation-test.html). Results are listed below. -->
+<body style="font:14px monospace">
+<h1 id="summary">Running…</h1>
+<pre id="failures"></pre>
+<script type="module">
+import { deriveRecommendation, outfitCategoryFor, sceneFor, withVariations, REMINDERS } from '../recommendation.js';
+import { getRecommendationState, setOutfitVariation } from '../state.js';
+
+let passed = 0;
+const failures = [];
+function check(name, actual, expected) {
+  const ok = JSON.stringify(actual) === JSON.stringify(expected);
+  if (ok) passed++; else failures.push(`${name}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+}
+
+// A calm day (60°F, no rain, light wind, low UV) with overrides
+const day = (o = {}) => ({ date: '2026-10-05', weatherCode: 0, temperature: 60, precipitationProbability: 0, windSpeed: 5, uvIndex: 1, ...o });
+const rec = (o) => deriveRecommendation(day(o));
+
+// --- Outfit category boundaries (temperatures are rounded first) ---
+check('39 is cold', rec({ temperature: 39 }).outfitCategory, 'cold');
+check('39.4 rounds to 39: cold', rec({ temperature: 39.4 }).outfitCategory, 'cold');
+check('39.6 rounds to 40: cool', rec({ temperature: 39.6 }).outfitCategory, 'cool');
+check('40 is cool', rec({ temperature: 40 }).outfitCategory, 'cool');
+check('55 is cool', rec({ temperature: 55 }).outfitCategory, 'cool');
+check('56 is mild', rec({ temperature: 56 }).outfitCategory, 'mild');
+check('70 is mild', rec({ temperature: 70 }).outfitCategory, 'mild');
+check('70.4 rounds to 70: mild', rec({ temperature: 70.4 }).outfitCategory, 'mild');
+check('71 is warm', rec({ temperature: 71 }).outfitCategory, 'warm');
+check('outfitCategoryFor(-10)', outfitCategoryFor(-10), 'cold');
+check('outfitCategoryFor(110)', outfitCategoryFor(110), 'warm');
+
+// --- Effective temperature: -5°F when wind >= 15 mph OR precipitation >= 50% (applied once) ---
+check('wind 14: no drop', rec({ windSpeed: 14 }).effectiveTemp, 60);
+check('wind 15: drop', rec({ windSpeed: 15 }).effectiveTemp, 55);
+check('wind 14.6 rounds to 15: drop', rec({ windSpeed: 14.6 }).effectiveTemp, 55);
+check('precip 49: no drop', rec({ precipitationProbability: 49 }).effectiveTemp, 60);
+check('precip 50: drop', rec({ precipitationProbability: 50 }).effectiveTemp, 55);
+check('wind and precip together: one -5 only', rec({ windSpeed: 30, precipitationProbability: 90 }).effectiveTemp, 55);
+check('drop moves category: 56 mild -> 51 cool', rec({ temperature: 56, windSpeed: 20 }).outfitCategory, 'cool');
+check('drop moves category: 40 cool -> 35 cold', rec({ temperature: 40, precipitationProbability: 50 }).outfitCategory, 'cold');
+check('71 warm -> 66 mild when rainy', rec({ temperature: 71, precipitationProbability: 60 }).outfitCategory, 'mild');
+check('reminders use actual temp, not effective: 85 with wind still hydrates', rec({ temperature: 85, windSpeed: 20 }).reminders.hydration, true);
+
+// --- Reminder thresholds (each independent, on actual values) ---
+check('umbrella 49', rec({ precipitationProbability: 49 }).reminders.umbrella, false);
+check('umbrella 50', rec({ precipitationProbability: 50 }).reminders.umbrella, true);
+check('sunscreen UV 2', rec({ uvIndex: 2 }).reminders.sunscreen, false);
+check('sunscreen UV 2.4 rounds to 2', rec({ uvIndex: 2.4 }).reminders.sunscreen, false);
+check('sunscreen UV 3', rec({ uvIndex: 3 }).reminders.sunscreen, true);
+check('hydration 84', rec({ temperature: 84 }).reminders.hydration, false);
+check('hydration 85', rec({ temperature: 85 }).reminders.hydration, true);
+check('windy 24', rec({ windSpeed: 24 }).reminders.windy, false);
+check('windy 25', rec({ windSpeed: 25 }).reminders.windy, true);
+check('windy 20 drops temp but is not windy', [rec({ windSpeed: 20 }).effectiveTemp, rec({ windSpeed: 20 }).reminders.windy], [55, false]);
+check('hot calm day: hydration without a drop', [rec({ temperature: 90 }).effectiveTemp, rec({ temperature: 90 }).reminders.hydration], [90, true]);
+check('all four at once', rec({ temperature: 90, precipitationProbability: 80, uvIndex: 8, windSpeed: 30 }).reminders,
+  { umbrella: true, sunscreen: true, hydration: true, windy: true });
+check('none triggered', rec({}).reminders, { umbrella: false, sunscreen: false, hydration: false, windy: false });
+
+// --- Scene (WMO code), priority: snow > rain > windy > cloudy > sunny ---
+check('clear', sceneFor(0, false), 'sunny');
+check('mainly clear', sceneFor(1, false), 'sunny');
+check('partly cloudy', sceneFor(2, false), 'cloudy');
+check('overcast', sceneFor(3, false), 'cloudy');
+check('fog', sceneFor(45, false), 'cloudy');
+check('drizzle', sceneFor(51, false), 'rainy');
+check('rain', sceneFor(63, false), 'rainy');
+check('freezing rain', sceneFor(66, false), 'rainy');
+check('rain showers', sceneFor(80, false), 'rainy');
+check('thunderstorm', sceneFor(95, false), 'rainy');
+check('snow', sceneFor(73, false), 'snowy');
+check('snow showers', sceneFor(85, false), 'snowy');
+check('windy clear day', sceneFor(0, true), 'windy');
+check('windy cloudy day', sceneFor(3, true), 'windy');
+check('windy but raining stays rainy', sceneFor(61, true), 'rainy');
+check('windy but snowing stays snowy', sceneFor(73, true), 'snowy');
+check('unknown code falls back to sunny', sceneFor(null, false), 'sunny');
+check('scene is part of the state', rec({ weatherCode: 3, windSpeed: 30 }).scene, 'windy');
+
+// --- Missing data ---
+check('no day', deriveRecommendation(null), null);
+check('null temperature -> no recommendation', rec({ temperature: null }), null);
+check('null wind/precip/uv treated as 0, still recommends', rec({ windSpeed: null, precipitationProbability: null, uvIndex: null }).reminders,
+  { umbrella: false, sunscreen: false, hydration: false, windy: false });
+
+// --- Variations ---
+const seq = (...values) => { let i = 0; return () => values[i++ % values.length]; };
+const allOn = rec({ temperature: 90, precipitationProbability: 80, uvIndex: 8, windSpeed: 30 });
+const calm = rec({});
+
+let r = withVariations(calm, {}, seq(0.99));
+check('only triggered reminders get indices', r.variations.reminderVariationIndices, {});
+check('outfit index from random', r.variations.outfitVariationIndex, 2);
+
+r = withVariations(allOn, {}, seq(0.0, 0.4, 0.7, 0.99, 0.1));
+check('independent picks in order: outfit then each reminder', r.variations,
+  { outfitVariationIndex: 0, reminderVariationIndices: { umbrella: 1, sunscreen: 2, hydration: 2, windy: 0 } });
+check('state includes derived fields and variations', [r.state.outfitCategory, r.state.outfitVariationIndex], ['warm', 0]);
+
+r = withVariations(allOn, { outfitVariationIndex: 1, reminderVariationIndices: { umbrella: 2, sunscreen: 0, hydration: 1, windy: 2 } }, () => { throw new Error('should not randomize'); });
+check('saved variations reused without randomizing', r.variations,
+  { outfitVariationIndex: 1, reminderVariationIndices: { umbrella: 2, sunscreen: 0, hydration: 1, windy: 2 } });
+
+r = withVariations(allOn, { outfitVariationIndex: 7, reminderVariationIndices: { umbrella: -1, sunscreen: 1.5, hydration: 'x' } }, seq(0.0));
+check('invalid saved indices are replaced', r.variations,
+  { outfitVariationIndex: 0, reminderVariationIndices: { umbrella: 0, sunscreen: 0, hydration: 0, windy: 0 } });
+
+r = withVariations(allOn, { outfitVariationIndex: 2, reminderVariationIndices: { umbrella: 1 } }, seq(0.0));
+check('missing reminder indices filled, existing kept', r.variations,
+  { outfitVariationIndex: 2, reminderVariationIndices: { umbrella: 1, sunscreen: 0, hydration: 0, windy: 0 } });
+
+// Independence over many runs: every (outfit, umbrella wording) pair of the 3x3 must occur, i.e. not fixed pairs
+const pairs = new Set();
+const seen = { outfit: new Set(), umbrella: new Set(), sunscreen: new Set(), hydration: new Set(), windy: new Set() };
+for (let i = 0; i < 2000; i++) {
+  const v = withVariations(allOn).variations;
+  pairs.add(`${v.outfitVariationIndex}-${v.reminderVariationIndices.umbrella}`);
+  seen.outfit.add(v.outfitVariationIndex);
+  for (const name of REMINDERS) seen[name].add(v.reminderVariationIndices[name]);
+}
+check('all 9 outfit x umbrella pairs occur', pairs.size, 9);
+check('each pool uses indices 0-2 only and all of them',
+  Object.values(seen).map((s) => [...s].sort().join('')), ['012', '012', '012', '012', '012']);
+
+// --- Persistence through state.js (per location + date) ---
+localStorage.clear();
+const austin = { label: 'Austin, Texas', latitude: 30.26715, longitude: -97.74306 };
+const chicago = { label: 'Current location', latitude: 41.8781, longitude: -87.6298 };
+const hot = day({ temperature: 90, precipitationProbability: 80, uvIndex: 8, windSpeed: 30 });
+
+const first = getRecommendationState(austin, hot);
+let sameEveryTime = true;
+for (let i = 0; i < 50; i++) {
+  const again = getRecommendationState(austin, hot);
+  if (again.outfitVariationIndex !== first.outfitVariationIndex
+    || JSON.stringify(again.reminderVariationIndices) !== JSON.stringify(first.reminderVariationIndices)) sameEveryTime = false;
+}
+check('returning to the same (location, date) gives the same variations', sameEveryTime, true);
+
+const otherDay = getRecommendationState(austin, { ...hot, date: '2026-10-06' });
+const keys = Object.keys(JSON.parse(localStorage.getItem('weatherwear.variations')));
+check('separate keys per date', keys.length, 2);
+getRecommendationState(chicago, hot);
+check('separate key per location', Object.keys(JSON.parse(localStorage.getItem('weatherwear.variations'))).length, 3);
+
+const other = (first.outfitVariationIndex + 1) % 3;
+setOutfitVariation(austin, hot.date, other);
+const afterPick = getRecommendationState(austin, hot);
+check('manual pick overrides and persists', afterPick.outfitVariationIndex, other);
+check('manual pick keeps reminder wording', afterPick.reminderVariationIndices, first.reminderVariationIndices);
+check('manual pick does not touch other dates', getRecommendationState(austin, { ...hot, date: '2026-10-06' }).outfitVariationIndex, otherDay.outfitVariationIndex);
+
+localStorage.setItem('weatherwear.variations', '{broken');
+check('corrupted variation storage does not crash and yields a state', getRecommendationState(austin, hot).outfitCategory, 'warm');
+check('no data day returns null state', getRecommendationState(austin, day({ temperature: null })), null);
+localStorage.clear();
+
+document.getElementById('summary').textContent = failures.length
+  ? `FAIL: ${failures.length} failed, ${passed} passed`
+  : `PASS: ${passed} checks passed`;
+document.getElementById('failures').textContent = failures.join('\n');
+</script>

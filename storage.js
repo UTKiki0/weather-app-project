@@ -12,6 +12,31 @@ export function saveLocation({ label, latitude, longitude }) {
   }
 }
 
+const VARIATIONS_KEY = 'weatherwear.variations';
+
+/** Saved variation indices for one (location, date) key, or {} if none or unusable. */
+export function loadVariations(key) {
+  return readVariations()[key] ?? {};
+}
+
+/** Save variation indices for one key; other keys are kept (they accumulate per spec.md). */
+export function saveVariations(key, variations) {
+  try {
+    localStorage.setItem(VARIATIONS_KEY, JSON.stringify({ ...readVariations(), [key]: variations }));
+  } catch (error) {
+    console.warn('Could not save variations:', error);
+  }
+}
+
+function readVariations() {
+  try {
+    const all = JSON.parse(localStorage.getItem(VARIATIONS_KEY));
+    return all && typeof all === 'object' && !Array.isArray(all) ? all : {};
+  } catch (error) {
+    return {};
+  }
+}
+
 /** Return the saved { label, latitude, longitude }, or null if none or unusable. */
 export function loadLocation() {
   try {
