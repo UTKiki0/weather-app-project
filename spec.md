@@ -71,6 +71,8 @@ Translate every fixed brief requirement and the selected research-driven feature
   *Acceptance:* Changing the selected location or date triggers a new Open-Meteo request, visible in the network tab, and the displayed values match the raw API response for that location/date.
 - **R2 — Manual location entry.** A free-text search field resolves a US city or zip to coordinates via Open-Meteo's geocoding endpoint.
   *Acceptance:* Entering a valid US city name or zip returns a matching location and updates the forecast; entering an unrecognized or non-US term shows a clear "location not found" message without crashing.
+- **R2a — Ambiguous location choice.** When a search returns more than one US match, a short list (at most 5, each labeled "City, State") appears under the search field and the user picks one; when it returns exactly one match, that match is used directly. The list can be dismissed, and each row is at least 44 px tall on phone. The active location shown on the main screen includes the state (e.g. "Springfield, Illinois") so a wrong pick is visible.
+  *Acceptance:* Searching "Springfield" shows a list of Springfields in different states and selecting one updates the forecast and the displayed location; searching a single-match zip such as "78705" goes straight to Austin, Texas without a list.
 - **R3 — Device location.** A location icon requests the browser's geolocation and, on success, uses those coordinates for the forecast.
   *Acceptance:* Granting permission updates the displayed location/forecast to the device's position; denying permission falls back to manual entry with a visible message (see R13).
 - **R4 — Save most recent location only.** The most recently resolved location (manual or device) is saved to local browser storage, overwriting any prior saved location.
@@ -197,6 +199,7 @@ Record features intentionally excluded from this project.
 After implementation or testing, record requirement changes and the evidence that prompted them. Update the screen drawings when a material layout or interaction changes.
 
 - 2026-10-05 (build, checkpoint 3): Weather inputs are reduced over daytime hours (8:00–20:00 local) instead of using daily highs, because the outfit applies to the hours the user is out. Temperature is the daytime average; precipitation, wind, and UV are daytime maxima. Proposed by the Agent, chosen by the Developer. **Pending Developer review of the edited text.**
+- 2026-10-05 (build, checkpoint 3b): Added R2a (pick-a-result list for ambiguous searches) at the Developer's request, replacing the plan's "use the top match, no disambiguation UI". Chose a list shown on submit over live typeahead to avoid per-keystroke requests and extra combobox accessibility work. **Pending Developer review.**
 
 ## Approval
 

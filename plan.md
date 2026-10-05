@@ -55,7 +55,7 @@ During implementation, follow the approved plan in working checkpoints and keep 
 - [ ] Build the phone layout's static markup/CSS against [07-main-screen-phone.jpg](reference/07-main-screen-phone.jpg) (placeholder content, no live data yet)
 - [ ] Add the laptop two-column layout via media query against [08-main-screen-laptop.jpg](reference/08-main-screen-laptop.jpg)
 - [ ] Implement the Open-Meteo forecast fetch for a fixed test location and confirm returned values in the console (R1)
-- [ ] Add manual location search using Open-Meteo geocoding, including the "location not found" error state (R2)
+- [ ] Add manual location search using Open-Meteo geocoding, including the "location not found" error state and the pick-a-result list for ambiguous matches (R2, R2a)
 - [ ] Add the device-location button with Geolocation API integration and the permission-denied fallback message (R3, R15)
 - [ ] Save and restore the most recently resolved location via `localStorage`, overwriting on each new location (R4)
 - [ ] Implement the recommendation engine: `effectiveTemp`, `outfitCategory`, and the four reminder triggers, from live weather values (recommendation state rules)
@@ -99,6 +99,9 @@ Before testing, record the purpose, a few realistic tasks, non-leading prompts, 
 ## Revisions
 
 Record material plan changes and why they were made.
+
+- 2026-10-05: Replaced "use the top geocoding match, no disambiguation UI" (Main risks) with a pick-a-result list shown on submit when a search has more than one US match (R2a). Developer's request; a visible choice avoids silently showing the wrong city.
+- 2026-10-05: Local server is `tools/serve.ps1` (PowerShell) because Python and Node are not installed.
 
 ## Saving transcripts
 
