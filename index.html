@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Weather Wear</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app" id="main-view">
+    <!-- Top bar: location search, device location, info -->
+    <header class="top-bar">
+      <form class="search" role="search" id="search-form">
+        <label class="visually-hidden" for="location-input">Search US city or zip code</label>
+        <input id="location-input" type="search" placeholder="City or zip" autocomplete="off">
+        <button type="submit" class="icon-btn" aria-label="Search location">
+          <img src="assets/ui/search.svg" alt="">
+        </button>
+      </form>
+      <button type="button" class="icon-btn" id="device-location-btn" aria-label="Use my device location">
+        <img src="assets/ui/map-pin.svg" alt="">
+      </button>
+      <button type="button" class="icon-btn" id="info-btn" aria-label="About this app">
+        <img src="assets/ui/info.svg" alt="">
+      </button>
+    </header>
+
+    <!-- Character stage: background, temperature, character, pill, customize -->
+    <section class="stage" aria-label="Outfit recommendation">
+      <div class="stage-header">
+        <p class="place" id="place">Austin, TX</p>
+        <p class="when" id="when">Today · Forecast</p>
+        <p class="temp" id="temp">80°F</p>
+        <p class="condition" id="condition">Sunny, light breeze</p>
+      </div>
+
+      <!-- Placeholder until character art exists in assets/ -->
+      <div class="character" id="character" role="img" aria-label="Character wearing a warm-weather outfit">🧍</div>
+
+      <ul class="pill" id="pill" aria-label="Weather details">
+        <li><span aria-hidden="true">💧</span> <span class="visually-hidden">Chance of rain</span>30%</li>
+        <li><span aria-hidden="true">💨</span> <span class="visually-hidden">Wind speed</span>10 mph</li>
+        <li><span aria-hidden="true">☀️</span><span class="visually-hidden">Sunscreen reminder</span></li>
+        <li><span aria-hidden="true">🥤</span><span class="visually-hidden">Extra hydration reminder</span></li>
+      </ul>
+
+      <button type="button" class="icon-btn customize-btn" id="customize-btn" aria-label="Change outfit style">
+        <img src="assets/ui/shirt.svg" alt="">
+      </button>
+    </section>
+
+    <!-- 7-day strip: today + 6 days, doubles as the date picker -->
+    <nav class="day-strip" id="day-strip" aria-label="Select a day">
+      <button type="button" class="day" aria-pressed="true"><span class="day-icon" aria-hidden="true">☀️</span><span class="day-num">5</span><span class="visually-hidden">Today</span></button>
+      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">☀️</span><span class="day-num">6</span></button>
+      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">⛅</span><span class="day-num">7</span></button>
+      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">🌧️</span><span class="day-num">8</span></button>
+      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">🌧️</span><span class="day-num">9</span></button>
+      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">💨</span><span class="day-num">10</span></button>
+      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">❄️</span><span class="day-num">11</span></button>
+    </nav>
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
