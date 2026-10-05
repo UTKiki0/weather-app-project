@@ -2,6 +2,7 @@
 import { fetchForecast } from './weather.js';
 import { searchLocations } from './geocode.js';
 import { getDeviceLocation } from './device-location.js';
+import { saveLocation, loadLocation } from './storage.js';
 
 const form = document.getElementById('search-form');
 const input = document.getElementById('location-input');
@@ -51,9 +52,15 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') hideFeedback();
 });
 
+// A location the user just chose: remember it (replacing any earlier one), then show it.
 function selectLocation(place) {
+  saveLocation(place);
   hideFeedback();
   input.value = '';
+  showLocation(place);
+}
+
+function showLocation(place) {
   placeEl.textContent = place.label;
 
   // Temporary: log the forecast until the UI is wired to the recommendation state.
@@ -92,4 +99,12 @@ function showStatus(message) {
 function hideFeedback() {
   statusEl.hidden = true;
   resultsEl.hidden = true;
+}
+
+// On load, restore the last-used location without a new geocoding or geolocation request (R4).
+const savedLocation = loadLocation();
+if (savedLocation) {
+  showLocation(savedLocation);
+} else {
+  placeEl.textContent = 'Choose a location';
 }
