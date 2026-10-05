@@ -29,46 +29,41 @@
       <ul class="results" id="results" aria-label="Matching locations" hidden></ul>
     </header>
 
-    <!-- Character stage: background, temperature, character, pill, customize -->
-    <section class="stage" aria-label="Outfit recommendation">
+    <!-- Character stage: background, temperature, character, customize. Filled by render.js
+         from the one recommendation state. -->
+    <section class="stage" id="stage" aria-label="Outfit recommendation">
       <div class="stage-header">
-        <p class="place" id="place">Austin, TX</p>
-        <p class="when" id="when">Today · Forecast</p>
-        <p class="temp" id="temp">80°F</p>
-        <p class="condition" id="condition">Sunny, light breeze</p>
+        <p class="place" id="place"></p>
+        <p class="when" id="when"></p>
+        <p class="temp" id="temp"></p>
+        <p class="condition" id="condition" role="status"></p>
       </div>
 
-      <!-- Placeholder until character art exists in assets/ -->
-      <div class="character" id="character" role="img" aria-label="Character wearing a warm-weather outfit">🧍</div>
+      <div class="character" id="character"></div>
 
-      <button type="button" class="icon-btn customize-btn" id="customize-btn" aria-label="Change outfit style">
+      <button type="button" class="icon-btn customize-btn" id="customize-btn" aria-label="Change outfit style" disabled>
         <img src="assets/ui/shirt.svg" alt="">
       </button>
     </section>
 
     <!-- Info pill: overlays the stage on phone, sits in the right column on laptop.
-         Text labels are screen-reader-only on phone and visible on laptop. -->
-    <ul class="pill" id="pill" aria-label="Weather details">
-      <li><span aria-hidden="true">💧</span> 30% <span class="label">chance of rain</span></li>
-      <li><span aria-hidden="true">💨</span> 10 mph <span class="label">wind</span></li>
-      <li><span aria-hidden="true">☀️</span> <span class="label">Sunscreen reminder</span></li>
-      <li><span aria-hidden="true">🥤</span> <span class="label">Extra hydration reminder</span></li>
-    </ul>
+         Rain/wind labels and reminder wording are visible on laptop; on phone, reminder wording
+         shows when its icon is tapped. Always available to screen readers. -->
+    <ul class="pill" id="pill" aria-label="Weather details" hidden></ul>
 
     <!-- 7-day strip: today + 6 days, doubles as the date picker -->
     <nav class="day-strip" id="day-strip" aria-labelledby="day-strip-title">
       <h2 class="strip-title" id="day-strip-title">Upcoming days</h2>
-      <div class="days">
-      <button type="button" class="day" aria-pressed="true"><span class="day-icon" aria-hidden="true">☀️</span><span class="day-num">5</span><span class="visually-hidden">Today</span></button>
-      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">☀️</span><span class="day-num">6</span></button>
-      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">⛅</span><span class="day-num">7</span></button>
-      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">🌧️</span><span class="day-num">8</span></button>
-      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">🌧️</span><span class="day-num">9</span></button>
-      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">💨</span><span class="day-num">10</span></button>
-      <button type="button" class="day" aria-pressed="false"><span class="day-icon" aria-hidden="true">❄️</span><span class="day-num">11</span></button>
-      </div>
+      <div class="days" id="days"></div>
     </nav>
   </main>
+
+  <!-- Customization picker: the active category's outfit variations (R9, R10) -->
+  <dialog class="outfit-dialog" id="outfit-dialog" aria-labelledby="outfit-dialog-title">
+    <h2 id="outfit-dialog-title"></h2>
+    <div class="outfit-options" id="outfit-options"></div>
+    <button type="button" class="dialog-close" id="outfit-close">Close</button>
+  </dialog>
 
   <script type="module" src="main.js"></script>
 </body>
