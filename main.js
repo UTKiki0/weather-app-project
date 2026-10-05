@@ -4,6 +4,7 @@ import { fetchForecast } from './weather.js';
 import { searchLocations } from './geocode.js';
 import { getDeviceLocation } from './device-location.js';
 import { saveLocation, loadLocation } from './storage.js';
+import './info.js';
 import { deriveRecommendation } from './recommendation.js';
 import { getRecommendationState, setOutfitVariation } from './state.js';
 import {

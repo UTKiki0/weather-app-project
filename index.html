@@ -65,6 +65,87 @@
     <button type="button" class="dialog-close" id="outfit-close">Close</button>
   </dialog>
 
+  <!-- Info screen (R16, R17): full screen on phone, right-half panel on laptop.
+       The scrim receives outside clicks on laptop and closes the panel. -->
+  <div class="info-layer" id="info-layer" hidden>
+    <div class="info-scrim" id="info-scrim"></div>
+    <section class="info-panel" id="info-panel" aria-labelledby="info-title">
+      <button type="button" class="icon-btn info-back" id="info-back" aria-label="Back to forecast">
+        <img src="assets/ui/arrow-left.svg" alt="">
+      </button>
+
+      <h1 id="info-title">About Weather Wear</h1>
+      <p class="created-by">Created by<br><strong>Kjartan Knutson-Ho</strong></p>
+
+      <details>
+        <summary>Weather data</summary>
+        <div class="info-body">
+          <p>Forecasts and place search come from <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo.com</a>,
+            licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>.
+            Open-Meteo's free service is for non-commercial use.</p>
+          <p>Each day's numbers cover daytime hours, 8 am to 8 pm local time at the chosen place:
+            temperature is the average, and chance of rain, wind, and UV are the highest values in that window.
+            Temperatures are in °F and wind is in mph. Every day shown, including today, is a forecast.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Methodology</summary>
+        <div class="info-body">
+          <p>Values are rounded to whole numbers, then these rules pick the outfit and reminders.</p>
+          <h2>Outfit</h2>
+          <p>The outfit follows an <em>effective temperature</em>: the forecast temperature, minus 5°F when wind is
+            15 mph or more, or the chance of rain is 50% or more.</p>
+          <ul>
+            <li>Cold: below 40°F</li>
+            <li>Cool: 40–55°F</li>
+            <li>Mild: above 55 to 70°F</li>
+            <li>Warm: above 70°F</li>
+          </ul>
+          <p>Based on common dressing guides such as
+            <a href="https://fittheforecast.com/blog/what-to-wear-by-temperature" target="_blank" rel="noopener">Fit The Forecast</a> and
+            <a href="https://www.nike.com/a/what-to-wear-by-temperature" target="_blank" rel="noopener">Nike</a>.
+            These are informal consumer guides, not a medical standard.</p>
+          <h2>Reminders</h2>
+          <ul>
+            <li>Umbrella: 50% or higher chance of precipitation.</li>
+            <li>Sunscreen: UV index 3 or higher, where the
+              <a href="https://www.epa.gov/sunsafety/uv-index-scale-0" target="_blank" rel="noopener">EPA UV Index Scale</a>
+              recommends sun protection.</li>
+            <li>Extra hydration: temperature of 85°F or higher. This threshold is a product choice, not a regulation.</li>
+            <li>Windy: wind of 25 mph or more. Official
+              <a href="https://www.weather.gov/safety/wind-ww" target="_blank" rel="noopener">National Weather Service wind advisories</a>
+              start higher, at 31–39 mph sustained, as a safety level rather than an everyday-dressing one.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Privacy practice</summary>
+        <div class="info-body">
+          <p>Your location (a searched place or your device's position) is used only to ask Open-Meteo for weather.
+            The app sends it to no other service.</p>
+          <p>Your most recent location, and the outfit and reminder choices for each date you view, are saved only
+            in this browser's local storage on your device. There are no accounts and no server-side storage of
+            your data, and the app has no analytics.</p>
+          <p>The site is hosted on GitHub Pages, which may keep standard server logs under
+            <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub's privacy statement</a>.</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Art credits</summary>
+        <div class="info-body">
+          <p>The character, outfits, backgrounds, weather icons, and reminder icons are AI-generated.
+            Generation tool: <em>to be added when the art is finished</em>.</p>
+          <p>Interface icons (search, location, info, outfit, back) are from
+            <a href="https://lucide.dev/" target="_blank" rel="noopener">Lucide</a>, ISC License,
+            © Lucide Icons and Contributors. Some Lucide icons derive from Feather, MIT License, © Cole Bemis.</p>
+        </div>
+      </details>
+    </section>
+  </div>
+
   <script type="module" src="main.js"></script>
 </body>
 </html>

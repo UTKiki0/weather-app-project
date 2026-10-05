@@ -375,3 +375,70 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
+
+/* ---- Info screen: full screen on phone, right-half panel on laptop ---- */
+.info-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  justify-content: flex-end;
+}
+.info-layer[hidden] { display: none; }
+.info-scrim { position: absolute; inset: 0; } /* transparent; catches outside clicks */
+
+.info-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 8px 16px 32px;
+  overflow-y: auto;
+  background: var(--panel);
+}
+.info-panel h1 { margin: 8px 0 4px; font-size: 1.4rem; }
+.created-by { margin: 0 0 24px; line-height: 1.5; }
+.info-back { margin-left: -8px; border: 2px solid var(--ink); }
+
+.info-panel details { border-top: 1px solid var(--border); }
+.info-panel details:last-of-type { border-bottom: 1px solid var(--border); }
+.info-panel summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--tap);
+  padding: 8px 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.info-panel summary::-webkit-details-marker { display: none; }
+.info-panel summary::before { /* chevron: points right, turns down when open */
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(-45deg);
+  transition: transform 0.15s;
+}
+.info-panel details[open] summary::before { transform: rotate(45deg); }
+.info-panel summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+
+.info-body { padding: 0 4px 16px 24px; line-height: 1.5; }
+.info-body h2 { margin: 16px 0 4px; font-size: 1rem; }
+.info-body p, .info-body ul { margin: 0 0 12px; }
+.info-body ul { padding-left: 20px; }
+.info-body a { color: var(--accent); }
+
+@media (min-width: 900px) {
+  /* Matches the Main screen's 3fr / 2fr split: the panel covers exactly the right column */
+  .info-panel {
+    width: 40%;
+    padding: 16px 24px 32px;
+    border-left: 2px solid var(--ink);
+    animation: info-slide-in 0.2s ease-out;
+  }
+}
+@keyframes info-slide-in { from { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .info-panel { animation: none; } }
