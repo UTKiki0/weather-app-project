@@ -1,7 +1,7 @@
 // Entry point: wires search, device location, the forecast, the day strip, and the picker to the
 // single recommendation state for the selected (location, date).
 import { fetchForecast } from './weather.js';
-import { searchLocations } from './geocode.js';
+import { searchLocations, planSearchOutcome } from './geocode.js';
 import { getDeviceLocation } from './device-location.js';
 import { saveLocation, loadLocation } from './storage.js';
 import './info.js';
@@ -42,12 +42,13 @@ form.addEventListener('submit', async (event) => {
     return;
   }
 
-  if (matches.length === 0) {
+  const outcome = planSearchOutcome(input.value, matches);
+  if (outcome.action === 'none') {
     showStatus('Location not found. Enter a US city or zip code.');
-  } else if (matches.length === 1) {
-    selectLocation(matches[0]); // single match: no choice to make
+  } else if (outcome.action === 'select') {
+    selectLocation(outcome.place); // one result that matches what was typed: no choice to make
   } else {
-    showChoices(matches);
+    showChoices(matches, outcome.didYouMean);
   }
 });
 
@@ -192,11 +193,18 @@ dialog.addEventListener('click', (event) => {
 
 // ---- Search feedback helpers ----
 
-function showChoices(matches) {
+// When nothing matched the typed text exactly (a typo or a foreign place), say so and let the user
+// confirm; the current location does not change until they pick.
+function showChoices(matches, didYouMean) {
+  const hint = document.createElement('li');
+  hint.className = 'results-hint';
+  hint.textContent = 'No exact match. Did you mean:';
   resultsEl.replaceChildren(
+    ...(didYouMean ? [hint] : []),
     ...matches.map((choice) => choiceItem(choice.label, () => selectLocation(choice))),
     choiceItem('Cancel', hideFeedback, 'dismiss'),
   );
+  resultsEl.setAttribute('aria-label', didYouMean ? 'No exact match. Did you mean' : 'Matching locations');
   statusEl.hidden = true;
   resultsEl.hidden = false;
   resultsEl.querySelector('button').focus(); // keyboard/screen-reader users land on the first option

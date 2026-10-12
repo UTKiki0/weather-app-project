@@ -1,0 +1,48 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Search outcome tests</title>
+<!-- Open via the dev server (http://localhost:8000/tests/geocode-test.html). Pure logic, no network. -->
+<body style="font:14px monospace">
+<h1 id="summary">Running…</h1>
+<pre id="failures"></pre>
+<script type="module">
+import { isExactMatch, planSearchOutcome } from '../geocode.js';
+
+let passed = 0;
+const failures = [];
+function check(name, actual, expected) {
+  const ok = JSON.stringify(actual) === JSON.stringify(expected);
+  if (ok) passed++; else failures.push(`${name}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+}
+const place = (name, label = name) => ({ name, label, latitude: 1, longitude: 2 });
+
+// --- isExactMatch ---
+check('same name', isExactMatch('Austin', place('Austin')), true);
+check('case-insensitive', isExactMatch('aUsTiN', place('Austin')), true);
+check('surrounding spaces', isExactMatch('  Austin  ', place('Austin')), true);
+check('punctuation ignored', isExactMatch('St Louis', place('St. Louis')), true);
+check('inner spaces ignored', isExactMatch('New York', place('New York')), true);
+check('fuzzy neighbor is not exact', isExactMatch('Tokyo', place('Tokyo Hill')), false);
+check('typo is not exact', isExactMatch('Springfeld', place('Springfield')), false);
+check('prefix is not exact', isExactMatch('Austin', place('Austin Heights')), false);
+check('five-digit zip counts as exact', isExactMatch('78705', place('Austin')), true);
+check('zip with spaces counts as exact', isExactMatch(' 78705 ', place('Austin')), true);
+check('four digits is not a zip', isExactMatch('7870', place('Austin')), false);
+check('city and state text is not exact', isExactMatch('Austin, TX', place('Austin')), false);
+
+// --- planSearchOutcome ---
+check('no results', planSearchOutcome('xyzzyq', []), { action: 'none' });
+const austin = place('Austin', 'Austin, Texas');
+check('one exact result is selected directly', planSearchOutcome('Austin', [austin]), { action: 'select', place: austin });
+check('zip with one result is selected directly', planSearchOutcome('78705', [austin]), { action: 'select', place: austin });
+const tokyoHill = place('Tokyo Hill', 'Tokyo Hill, Texas');
+check('one fuzzy result becomes a "did you mean" choice', planSearchOutcome('Tokyo', [tokyoHill]), { action: 'choose', didYouMean: true });
+check('several results with an exact one: plain list', planSearchOutcome('Springfield', [place('Springfield', 'Springfield, Missouri'), place('Springfield', 'Springfield, Illinois')]), { action: 'choose', didYouMean: false });
+check('several results, none exact: "did you mean" list', planSearchOutcome('Springfeld', [place('Springfield'), place('Springfield Gardens')]), { action: 'choose', didYouMean: true });
+check('one exact result among fuzzy ones still lists them (not auto-selected)', planSearchOutcome('Austin', [austin, place('Austin Heights')]), { action: 'choose', didYouMean: false });
+
+document.getElementById('summary').textContent = failures.length
+  ? `FAIL: ${failures.length} failed, ${passed} passed`
+  : `PASS: ${passed} checks passed`;
+document.getElementById('failures').textContent = failures.join('\n');
+</script>

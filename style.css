@@ -80,6 +80,7 @@ body {
   text-align: left;
   cursor: pointer;
 }
+.results-hint { padding: 8px 12px 4px; font-size: 0.9rem; }
 .results button:hover { background: var(--bg-sunny); }
 .results button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 .results .dismiss { color: var(--accent); font-weight: 600; }
