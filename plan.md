@@ -163,8 +163,8 @@ Agent-run checks against the deployed app (https://utkiki0.github.io/weather-app
 
 | Req | Evidence | Status |
 |---|---|---|
-| R1 live data | 70 forecast days over 10 US locations (Austin, Miami, Seattle, Anchorage, Phoenix, Minneapolis, Honolulu, New York, Denver, Chicago) matched an independently computed expectation for temperature, rain chance, wind, category, reminders, and scene; no mock data in the app | Pass, with a spec mismatch (finding 2) |
-| R2 / R2a search | Ambiguous list (5 + Cancel, 44 px rows, states shown), single-match zip goes straight through, unrecognized term and empty search show the message | Pass, except finding 1 |
+| R1 live data | 70 forecast days over 10 US locations (Austin, Miami, Seattle, Anchorage, Phoenix, Minneapolis, Honolulu, New York, Denver, Chicago) matched an independently computed expectation for temperature, rain chance, wind, category, reminders, and scene; no mock data in the app | Pass (acceptance reworded; finding 2 resolved) |
+| R2 / R2a search | Ambiguous list (5 + Cancel, 44 px rows, states shown), single-match zip goes straight through, unrecognized term and empty search show the message | Pass (finding 1 resolved) |
 | R3 / R15 device location | Real permission grant (Boston test position) gave a forecast for those coordinates; real denial gave the message, focused manual search, and search still worked | Pass |
 | R4 saved location | Reload restores the last location with 0 geocoding requests; device location also restores; one saved location only | Pass |
 | R5 / R6 / R7 | Exactly 7 days, first is Today; each day matched the oracle with no stale values; place with state, date, "Today" vs "forecast", °F and mph visible | Pass |
@@ -180,8 +180,9 @@ Agent-run checks against the deployed app (https://utkiki0.github.io/weather-app
 
 **Findings for Developer decision**
 
-1. **Non-US term resolves to a US look-alike.** Searching "Tokyo" auto-selects "Tokyo Hill, Texas" because the geocoder's fuzzy match returns that single US result, so no list is shown. R2's acceptance says a non-US term shows "location not found". Option: when there is one match whose name does not match the typed text, show it as a one-item "did you mean" choice instead of selecting it.
-2. **R1 acceptance wording vs behavior.** R1 says changing the date triggers a new Open-Meteo request. The app fetches all 7 days once per location and date changes use that data (one request on load, none on day taps). Either reword R1 to "changing the location triggers a request and date changes use the already-fetched 7 days", or refetch on date change.
+1. **RESOLVED (07f3a48): non-US term resolved to a US look-alike.** Searching "Tokyo" auto-selects "Tokyo Hill, Texas" because the geocoder's fuzzy match returns that single US result, so no list is shown. R2's acceptance says a non-US term shows "location not found". Option: when there is one match whose name does not match the typed text, show it as a one-item "did you mean" choice instead of selecting it.
+2. **RESOLVED (07f3a48): R1 acceptance wording vs behavior.** R1 says changing the date triggers a new Open-Meteo request. The app fetches all 7 days once per location and date changes use that data (one request on load, none on day taps). Either reword R1 to "changing the location triggers a request and date changes use the already-fetched 7 days", or refetch on date change.
+   Resolution evidence (deployed, after the fix): "Tokyo" and "Austi" show "No exact match. Did you mean:" with the location unchanged until a choice is made, Cancel keeps the old place, choosing "Tokyo Hill, Texas" loads it; "Springfield" keeps its plain list; a zip goes straight through; typos the geocoder cannot match ("Springfeld") show "Location not found". 19 new unit checks cover the matching rules and the mutant (always-exact) is caught. 20 of 20 search/location checks, 26 of 26 real-forecast checks, 13 of 13 failure-state checks, and axe on the new list state (phone and laptop) all pass.
 3. **Real data never produced a windy day, a snowy day, or all four reminders** in the 10 locations, so those paths are proven by the synthetic-forecast run and unit tests rather than real forecasts.
 4. **Art credit placeholder.** The Info screen says the generation tool is "to be added".
 5. **Thumb reach.** Per the sketches, search, location, and info sit at the top of the phone screen; the customize button (82% down) and day strip are low. Worth watching in usability testing.
