@@ -150,10 +150,13 @@ body {
 
 .character {
   flex: 1;
+  align-self: stretch;
   display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr); /* definite area, so the image height can be limited to it */
   place-items: center;
   font-size: 9rem;
   min-height: 0;
+  padding-bottom: 72px; /* phone: keep the character clear of the info pill and customize button */
 }
 
 .character img { max-width: 80%; max-height: 100%; object-fit: contain; }
@@ -300,7 +303,7 @@ body {
   .customize-btn { top: 16px; bottom: auto; right: 16px; }
 
   .stage-header { align-self: flex-start; text-align: left; padding: 24px; }
-  .character { font-size: 14rem; }
+  .character { font-size: 14rem; padding-bottom: 0; } /* laptop: the pill lives in the right column */
 
   /* Pill becomes a vertical, fully labeled list in the right column */
   .pill {

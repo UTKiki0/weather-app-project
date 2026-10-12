@@ -46,7 +46,7 @@ function showMessageStage({ place, when = '', condition }) {
   whenEl.textContent = when;
   tempEl.textContent = '';
   conditionEl.textContent = condition;
-  characterEl.replaceChildren();
+  characterEl.replaceChildren(neutralCharacter()); // decorative: the message above says what is happening
   characterEl.removeAttribute('role');
   characterEl.removeAttribute('aria-label');
   customizeBtn.disabled = true;
@@ -244,3 +244,19 @@ function weekday(date, style) {
 function monthDay(date, short = false) {
   return dateOf(date).toLocaleDateString('en-US', { month: short ? 'short' : 'long', day: 'numeric' });
 }
+
+// Neutral character shown when there is no recommendation (empty, loading, error, no data).
+// Nothing is shown if the file is missing.
+function neutralCharacter() {
+  return art('assets/character-base.png', () => document.createElement('span'));
+}
+
+// Phone: the info pill overlays the bottom of the stage and grows taller when reminders wrap onto
+// extra rows, so keep the character clear of however tall it currently is. (Laptop: the pill is in
+// the right column and nothing is reserved; CSS supplies the default for when the pill is hidden.)
+function updateCharacterClearance() {
+  const clearance = LAPTOP.matches || pillEl.hidden ? 0 : pillEl.offsetHeight + 24;
+  characterEl.style.paddingBottom = clearance ? `${Math.max(clearance, 72)}px` : '';
+}
+new ResizeObserver(updateCharacterClearance).observe(pillEl);
+LAPTOP.addEventListener('change', updateCharacterClearance);
