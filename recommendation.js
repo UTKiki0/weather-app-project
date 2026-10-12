@@ -4,6 +4,7 @@
 export const OUTFIT_VARIATIONS = 3;   // per category
 export const REMINDER_VARIATIONS = 3; // per reminder type
 export const REMINDERS = ['umbrella', 'sunscreen', 'hydration', 'windy'];
+export const PRECIPITATION_THRESHOLD = 50; // % chance: umbrella reminder, -5°F effective temp, and precipitation sky code
 
 /**
  * Turn one reduced day of weather (see weather.js) into the rule-derived part of the state.
@@ -20,13 +21,13 @@ export function deriveRecommendation(day) {
   const uvIndex = roundOrZero(day.uvIndex);
 
   // Wind or likely rain makes it feel colder, so dress one step down (-5°F) for the outfit only.
-  const effectiveTemp = windSpeed >= 15 || precipitationProbability >= 50
+  const effectiveTemp = windSpeed >= 15 || precipitationProbability >= PRECIPITATION_THRESHOLD
     ? temperature - 5
     : temperature;
 
   // Reminders are independent and use actual (not effective) values.
   const reminders = {
-    umbrella: precipitationProbability >= 50,
+    umbrella: precipitationProbability >= PRECIPITATION_THRESHOLD,
     sunscreen: uvIndex >= 3,
     hydration: temperature >= 85,
     windy: windSpeed >= 25,

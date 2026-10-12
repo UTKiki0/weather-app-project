@@ -1,0 +1,93 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Weather reduction tests</title>
+<!-- Open via the dev server (http://localhost:8000/tests/weather-test.html). Uses synthetic data only. -->
+<body style="font:14px monospace">
+<h1 id="summary">Running…</h1>
+<pre id="failures"></pre>
+<script type="module">
+import { reduceToDays, pickWeatherCode } from '../weather.js';
+
+let passed = 0;
+const failures = [];
+function check(name, actual, expected) {
+  const ok = JSON.stringify(actual) === JSON.stringify(expected);
+  if (ok) passed++; else failures.push(`${name}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+}
+
+// Build an Open-Meteo-shaped response: 24 hourly rows per date; `hours` maps hour -> overrides.
+function build(dates, hoursByDate = {}, dailyCodes = []) {
+  const hourly = { time: [], temperature_2m: [], precipitation_probability: [], wind_speed_10m: [], uv_index: [], weather_code: [] };
+  dates.forEach((date) => {
+    for (let h = 0; h < 24; h++) {
+      const o = { temp: 60, precip: 0, wind: 5, uv: 1, code: 0, ...(hoursByDate[date]?.[h] ?? {}) };
+      hourly.time.push(`${date}T${String(h).padStart(2, '0')}:00`);
+      hourly.temperature_2m.push(o.temp);
+      hourly.precipitation_probability.push(o.precip);
+      hourly.wind_speed_10m.push(o.wind);
+      hourly.uv_index.push(o.uv);
+      hourly.weather_code.push(o.code);
+    }
+  });
+  return { hourly, daily: { time: dates, weather_code: dates.map((_, i) => dailyCodes[i] ?? 0) } };
+}
+// Apply the same overrides to a range of hours
+const range = (from, to, o) => Object.fromEntries(Array.from({ length: to - from + 1 }, (_, i) => [from + i, o]));
+const D = '2026-10-12';
+const day = (hours, dailyCode) => reduceToDays(build([D], { [D]: hours }, [dailyCode]))[0];
+
+// --- Daytime window: hours 8..19 count; 7 and 20 do not ---
+let r = day({ 7: { temp: 100, wind: 90, uv: 11, precip: 99 }, 20: { temp: 100, wind: 90, uv: 11, precip: 99 } });
+check('hours 7 and 20 are excluded', [r.temperature, r.windSpeed, r.uvIndex, r.precipitationProbability], [60, 5, 1, 0]);
+r = day({ 8: { temp: 72, wind: 40, uv: 9, precip: 80 }, 19: { temp: 72, wind: 41, uv: 9, precip: 81 } });
+check('hours 8 and 19 are included', [r.windSpeed, r.uvIndex, r.precipitationProbability], [41, 9, 81]);
+check('temperature is the average of the 12 daytime hours', day({ 8: { temp: 72 }, 19: { temp: 72 } }).temperature, 60 + 24 / 12);
+check('night extremes do not move the temperature', day({ 2: { temp: 10 }, 23: { temp: 10 } }).temperature, 60);
+
+// --- Weather code: most common daytime code ---
+// Today's real-world pattern: mostly overcast, one thunderstorm hour at 8% rain chance
+const todayPattern = { ...range(8, 13, { code: 3 }), 14: { code: 95, precip: 8 }, 15: { code: 1 }, ...range(16, 19, { code: 0 }) };
+check('one stray thunderstorm hour at low chance: most common code wins', day(todayPattern, 95).weatherCode, 3);
+check('daily code is ignored when hourly codes exist', day(range(8, 19, { code: 2 }), 95).weatherCode, 2);
+check('night storm is ignored', day({ 3: { code: 95, precip: 90 }, ...range(8, 19, { code: 1 }) }, 95).weatherCode, 1);
+check('tie goes to the more severe code', pickWeatherCode([3, 3, 45, 45], 0), 45);
+check('tie between clear and cloud goes to cloud', pickWeatherCode([0, 0, 2, 2], 0), 2);
+
+// --- Weather code: precipitation override at the umbrella threshold ---
+const wetDay = (precip) => day({ ...range(8, 19, { code: 3 }), 11: { code: 61, precip }, 15: { code: 95, precip } });
+check('rain chance 50%: most severe precipitation code', wetDay(50).weatherCode, 95);
+check('rain chance 49.6% rounds to 50: override applies', wetDay(49.6).weatherCode, 95);
+check('rain chance 49.4% rounds to 49: no override', wetDay(49.4).weatherCode, 3);
+check('rain chance 80%: rain vs heavier rain', day({ ...range(8, 19, { code: 3 }), 9: { code: 61, precip: 80 }, 10: { code: 65, precip: 80 } }).weatherCode, 65);
+check('snow outranks rain', pickWeatherCode([61, 63, 73, 3], 90), 73);
+check('thunderstorm with hail outranks thunderstorm', pickWeatherCode([95, 96, 3], 90), 96);
+check('freezing rain outranks rain', pickWeatherCode([63, 66], 60), 66);
+check('override needs a precipitation code: falls back to most common', day({ ...range(8, 19, { code: 3 }), 12: { precip: 90 } }).weatherCode, 3);
+check('fog and cloud are not precipitation', pickWeatherCode([45, 45, 3], 90), 45);
+
+// --- Weather code: fallbacks ---
+const noCodes = build([D]); noCodes.hourly.weather_code = noCodes.hourly.weather_code.map(() => null); noCodes.daily.weather_code = [61];
+check('no usable hourly codes: falls back to the daily code', reduceToDays(noCodes)[0].weatherCode, 61);
+const noCodesAtAll = build([D]); noCodesAtAll.hourly.weather_code = noCodesAtAll.hourly.weather_code.map(() => null); noCodesAtAll.daily.weather_code = [null];
+check('no codes anywhere: null', reduceToDays(noCodesAtAll)[0].weatherCode, null);
+check('pickWeatherCode with nothing usable', pickWeatherCode([null, undefined], 0), null);
+check('pickWeatherCode with null probability', pickWeatherCode([61, 61, 3], null), 61);
+const noHourlyCodeField = build([D]); delete noHourlyCodeField.hourly.weather_code; noHourlyCodeField.daily.weather_code = [3];
+check('response without an hourly code field uses the daily code', reduceToDays(noHourlyCodeField)[0].weatherCode, 3);
+
+// --- Several days stay separate ---
+const a = '2026-10-12', b = '2026-10-13';
+const multi = reduceToDays(build([a, b], { [a]: range(8, 19, { temp: 50, code: 71 }), [b]: range(8, 19, { temp: 80, code: 0 }) }));
+check('two days are reduced independently', multi.map((x) => [x.date, x.temperature, x.weatherCode]), [[a, 50, 71], [b, 80, 0]]);
+
+// --- Missing data ---
+const nullTemps = build([D]); nullTemps.hourly.temperature_2m = nullTemps.hourly.temperature_2m.map(() => null);
+check('all-null temperatures reduce to null', reduceToDays(nullTemps)[0].temperature, null);
+check('empty response', reduceToDays({ hourly: { time: [] }, daily: { time: [], weather_code: [] } }), []);
+check('missing sections', reduceToDays({}), []);
+
+document.getElementById('summary').textContent = failures.length
+  ? `FAIL: ${failures.length} failed, ${passed} passed`
+  : `PASS: ${passed} checks passed`;
+document.getElementById('failures').textContent = failures.join('\n');
+</script>
