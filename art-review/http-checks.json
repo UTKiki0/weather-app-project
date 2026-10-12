@@ -1,0 +1,137 @@
+﻿[
+    {
+        "Path":  "assets/character-base.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/cold-1.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/cold-2.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/cold-3.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/cool-1.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/cool-2.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/cool-3.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/mild-1.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/mild-2.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/mild-3.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/warm-1.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/warm-2.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/outfits/warm-3.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/backgrounds/cloudy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/backgrounds/rainy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/backgrounds/snowy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/backgrounds/sunny.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/backgrounds/windy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/conditions/cloudy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/conditions/rainy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/conditions/snowy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/conditions/sunny.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/conditions/windy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/reminders/hydration.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/reminders/sunscreen.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/reminders/umbrella.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    },
+    {
+        "Path":  "assets/reminders/windy.png",
+        "Status":  200,
+        "ContentType":  "image/png"
+    }
+]

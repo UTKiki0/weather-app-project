@@ -1,0 +1,138 @@
+{
+  "tool": "OpenAI built-in image generation",
+  "model": "Not exposed by tool",
+  "date": "2026-10-12",
+  "reference": "character-base-v2.png (generation reference; removed from the repository, the approved base is assets/character-base.png)",
+  "export": "PNG: portraits 800x1200, backgrounds 1200x1200, icons 256x256. High-quality bicubic resize preserves alpha. Portraits use a common 0.86 scale after resizing, centered horizontally with visible foot baseline at y=1104 (alpha >=128), retaining at least 8% vertical margin.",
+  "assets": [
+    {
+      "path": "assets/outfits/cold-1.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-7cf1b2df-3db2-4ad5-96df-e67ca8172b8d.png"
+    },
+    {
+      "path": "assets/outfits/cold-2.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-f0047a2b-afbe-450a-888a-8e72448bc89e.png",
+      "prompt": "Use case: identity-preserve. Edit the approved cozy cartoon character reference. Keep EXACT same face, hair, light warm skin, proportions, front facing pose, scale, head position and shoe sole baseline, same 1024x1536 portrait canvas. Change ONLY clothes to a long wool overcoat, knit hat, wrapped scarf, dark trousers, and leather boots. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins, no cropping. Genuinely transparent alpha background, no ground, no shadow, no glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/cold-3.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-b13c11e4-cca4-481b-a753-dcbd02b4e4b2.png",
+      "prompt": "Use case: identity-preserve. Edit the approved cozy cartoon character reference. Keep EXACT same face, hair, light warm skin, proportions, front facing pose, scale, head position and shoe sole baseline, same 1024x1536 portrait canvas. Change ONLY clothes to a hooded parka with fur-trimmed hood, thick sweater underneath, mittens, dark insulated trousers, and insulated snow boots. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins, no cropping. Genuinely transparent alpha background, no ground, no shadow, no glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/cool-1.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-46e86bc1-eaff-436c-814a-4e4505aa69b3.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a denim jacket over a hoodie, straight jeans, and canvas sneakers. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/cool-2.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-9923182c-0d31-4fae-81e9-db08ee961802.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a varsity-style bomber jacket with plain stripes (no letters), a long-sleeve tee, joggers, and chunky sneakers. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/cool-3.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-4eb0b773-cfa2-42dd-8076-e95900f7f361.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a quarter-zip fleece pullover, chino pants, sneakers, and a small crossbody bag. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/mild-1.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-719ede5e-8565-4e22-a0d8-2231b587ea08.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a plain long-sleeve tee, relaxed jeans, and white sneakers. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/mild-2.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-bdc4ca0e-a59c-479a-a846-ccc826674f0d.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a light knit cardigan open over a t-shirt, straight-leg pants, and loafers. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/mild-3.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-9abb9810-5c9a-4f3b-bf42-e8db2a4222c5.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a thin zip-up hoodie, joggers, running shoes, and a backpack. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/warm-1.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-d4621544-3b52-4458-a46b-8d212cbd06e3.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a short-sleeve t-shirt, casual shorts, and sandals. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/warm-2.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-a76de7ba-5d4f-4bb5-b10a-b8a6144a6597.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a sleeveless tank top, athletic shorts, sneakers, and a baseball cap with no logo. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/outfits/warm-3.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-35955eee-2461-4bb1-a9ff-1a639e3c837b.png",
+      "prompt": "Use case: identity-preserve. Edit approved cozy cartoon character reference. Keep EXACT same face, dark brown hair, light warm skin, proportions, front-facing pose, scale, head position and shoe baseline, same 1024x1536 portrait canvas. Change ONLY clothing to a short-sleeve untucked button-up shirt, light shorts, sunglasses pushed up on the head, and slip-on shoes. Cozy minimalist flat cartoon illustration, soft rounded shapes, muted pastel palette, restrained shading, clean warm outlines matching reference. Full body visible with margins. Genuinely transparent alpha background, no ground, shadow or glow. No text, letters, logos or watermark. One character."
+    },
+    {
+      "path": "assets/backgrounds/sunny.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-3ff00e89-a474-4094-b8a1-fa4efd659999.png",
+      "prompt": "Use case: stylized-concept. Asset: full-bleed opaque square 1:1 weather app background, target 1200x1200. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel palette with limited colors, subtle soft shading, friendly playful style. Scene: pale blue gradient sky, large pale low-contrast yellow sun glow near upper right, a few very faint wispy clouds, gently rolling pale green hills along bottom. Calm almost empty pale sky in TOP 40 percent for dark navy text overlay. Very light airy low contrast throughout, no dark areas, nothing darker than medium grey. Soft landscape details in central 50 percent of width, ground near bottom. No characters, people, text, letters, logos, watermark, border or frame."
+    },
+    {
+      "path": "assets/backgrounds/cloudy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-76dc1340-00df-485a-ab47-a0725afdeace.png",
+      "prompt": "Use case: stylized-concept. Asset: full-bleed opaque square 1:1 weather app background, target 1200x1200. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel palette with limited colors, subtle soft shading, friendly playful style. Scene: pale grey-blue sky with large fluffy light-grey clouds in very low contrast and muted gently rolling hills along bottom. Calm almost empty pale sky in TOP 40 percent for dark navy text overlay. Very light airy low contrast throughout, no dark areas, nothing darker than medium grey. Soft landscape details in central 50 percent of width, ground near bottom. No characters, people, text, letters, logos, watermark, border or frame."
+    },
+    {
+      "path": "assets/backgrounds/rainy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-c8a63398-aa0c-4018-85fe-c6b592592de1.png",
+      "prompt": "Use case: stylized-concept. Asset: full-bleed opaque square 1:1 weather app background, target 1200x1200. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel palette with limited colors, subtle soft shading, friendly playful style. Scene: light blue-grey sky with soft pale clouds, fine light rain streaks falling in low contrast, small puddle shapes with ripples along bottom. Bright, never stormy or dark. Calm almost empty pale sky in TOP 40 percent for dark navy text overlay. Very light airy low contrast throughout, no dark areas, nothing darker than medium grey. Soft landscape details in central 50 percent of width, ground near bottom. No characters, people, text, letters, logos, watermark, border or frame."
+    },
+    {
+      "path": "assets/backgrounds/snowy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-c1b8315b-180c-4d89-a051-89a875fc28b7.png",
+      "prompt": "Use case: stylized-concept. Asset: full-bleed opaque square 1:1 weather app background, target 1200x1200. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel palette with limited colors, subtle soft shading, friendly playful style. Scene: very pale white-blue sky, small sparse snowflakes falling, snow-covered rolling hills along bottom, two tiny pale pine trees near left and right edges. Calm almost empty pale sky in TOP 40 percent for dark navy text overlay. Very light airy low contrast throughout, no dark areas, nothing darker than medium grey. Soft landscape details in central 50 percent of width, ground near bottom. No characters, people, text, letters, logos, watermark, border or frame."
+    },
+    {
+      "path": "assets/backgrounds/windy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-5253e79a-4bdd-4ae8-a523-fc0066930067.png",
+      "prompt": "Use case: stylized-concept. Asset: full-bleed opaque square 1:1 weather app background, target 1200x1200. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel palette with limited colors, subtle soft shading, friendly playful style. Scene: pale mint-green sky with flowing soft curved wind lines in low contrast, a few small leaves blowing and grass bending in breeze along bottom. Calm almost empty pale sky in TOP 40 percent for dark navy text overlay. Very light airy low contrast throughout, no dark areas, nothing darker than medium grey. Soft landscape details in central 50 percent of width, ground near bottom. No characters, people, text, letters, logos, watermark, border or frame."
+    },
+    {
+      "path": "assets/conditions/sunny.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-508fbad6-1b2c-4f65-b9ea-a8e97e12eb5f.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. a round warm yellow sun with short rounded rays and no face. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/conditions/cloudy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-55ddc416-db64-4ed6-8aef-e4060d74a864.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. one fluffy light grey-blue cloud with a smaller cloud behind it. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/conditions/rainy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-486a5e5c-a784-480c-b8e3-fc045ced9680.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. a grey-blue cloud with three blue raindrops below it. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/conditions/snowy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-4dd21bae-fa26-4067-9dfb-8dfb1f1bac7b.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. a pale blue cloud with three simple white-and-blue snowflakes below it. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/conditions/windy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-30f464b0-4d62-4bb2-9ba3-1701eb3de7fc.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. three curved flowing wind swirl lines in blue-grey with one small green leaf blowing along. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/reminders/umbrella.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-ffdcdbf7-40a7-4aa6-ab66-25f45089a66c.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. one open bright coral umbrella seen from front with a curved handle. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/reminders/sunscreen.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-c37d0442-1152-40ca-ab1a-7c152253bb57.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. one squeeze bottle of sunscreen with a small yellow sun symbol on front, no text. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/reminders/hydration.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-86f21380-3087-4058-b06a-600f57600de5.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. one reusable water bottle with a large blue water droplet on front, no text. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    },
+    {
+      "path": "assets/reminders/windy.png",
+      "source": "C:\\Users\\kjart\\.codex\\generated_images\\01a13222-18c2-7ce1-9770-e675b8beb95a\\exec-b84a7f52-34a8-49bb-8a1b-308bb40c3098.png",
+      "prompt": "Use case: stylized-concept. Asset: single weather app icon. one baseball cap being blown away by a strong gust, with two curved gust lines trailing behind it. Minimalist flat vector-style cozy illustration, soft rounded shapes, clean smooth edges, gentle pastel limited palette, subtle soft shading, consistent substantial line weight. Single bold SIMPLE centered icon, thick rounded shapes easily readable when shrunk to 28 or 32 pixels. Square 1:1 canvas target 256x256, fill central 80 percent, entire icon visible. True transparent alpha background, no shadows, ground, backdrop, halo or glow. No characters, no text, letters, logos or watermark."
+    }
+  ]
+}

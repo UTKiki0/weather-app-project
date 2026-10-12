@@ -108,7 +108,7 @@ Find out whether a US college student can, without help, (1) learn what to wear 
 - **Devices:** the deployed URL, https://utkiki0.github.io/weather-app-project/. At least two testers use their own phone and one uses a laptop, so both layouts are observed. Note the device and browser for each session.
 - **State:** each tester starts on a fresh browser profile or private window, so there is no saved location. The Developer does not explain the app beforehand beyond "it suggests what to wear based on the weather".
 - **Recording:** the written notes are the record. Screen or audio recording only with the tester's spoken consent at the start, and delete it after notes are written up. The tester can stop at any time.
-- **Art status:** the 27 AI-generated images are still placeholders. Testing before the art is in measures the layout and flow but not whether the character is engaging. Decide before the first session, and note which version was tested.
+- **Art status:** all 27 production PNGs were generated on 2026-10-12 using the Developer-approved cozy character. See `assets/art-prompts.md` for prompts, credits, and verification. Final artwork and responsive crop approval remain with the Developer; note the version used in each session.
 - **Roles:** the Developer facilitates and takes notes. If possible, a second person takes notes so the facilitator can stay quiet.
 
 ### Tasks and prompts
@@ -188,6 +188,18 @@ Agent-run checks against the deployed app (https://utkiki0.github.io/weather-app
 5. **Thumb reach.** Per the sketches, search, location, and info sit at the top of the phone screen; the customize button (82% down) and day strip are low. Worth watching in usability testing.
 
 **Developer to verify** (cannot be proven from here): the real phone and real laptop, including one-handed use; a screen reader (VoiceOver, TalkBack, or NVDA) announcing every icon-only control; dragging a browser window across 900 px with a reminder showing; the real device-location prompt; whether the layouts match the hand sketches; text contrast over the final art once it exists.
+
+### Art integration (2026-10-12)
+
+The 27 AI-generated images were made in a separate session (transcript in `transcripts/build-2026-10-12_173005.md`, prompts and credits in `assets/art-prompts.md`, generation record in `assets/generation-log.json`, review sheets in `art-review/`). Agent checks on the app with the real art, run against the local build before deployment:
+
+- Every outfit, background, day-strip icon, reminder icon, and the 12 picker thumbnails loaded, with no placeholder left, across synthetic forecasts covering all 4 categories, 5 scenes, and all 4 reminders at once (14 checks).
+- Neutral base character shown in the empty, loading, and error states.
+- Text contrast from rendered pixels with the text hidden, over each real background at 6 screen sizes (390x844, 360x740, 430x932, 1280x720, 1440x900, 1920x1080): worst case 10.7:1 against the 4.5:1 required (31 checks).
+- Layout with the art found a bug: on laptop the 800x1200 character overflowed the stage (cropped at the knees, page scrollbar), and at 320 px wide it collided with a two-row info pill. Fixed by sizing the character to the stage and reserving space for the pill's actual height; verified at 14 sizes from 320x568 to 2560x1080 (28 checks).
+- Regression of every earlier suite against the build with art: 70 real forecast days vs the oracle (26), synthetic rule cases (10), failure states (13), search and location (20), layout and accessibility (27); unit suites 72, 27, and 19. All pass. Console: 0 errors, 0 404s (a tab icon was added so the browser's automatic favicon request no longer 404s).
+
+Developer decisions: keep the art as PNG (a JPEG conversion of the backgrounds would cut 8.3 MB to about 0.5 MB, offered and declined); the unused base-character originals (v1, v2) were deleted; the review sheets are committed.
 
 ## Revisions
 
