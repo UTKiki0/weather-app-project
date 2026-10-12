@@ -157,6 +157,37 @@ Summarize in this file: a count of how many of the three testers completed each 
 
 (To be filled in after testing: session notes P1–P3, findings summary, chosen improvement.)
 
+## Verification log
+
+Agent-run checks against the deployed app (https://utkiki0.github.io/weather-app-project/), 2026-10-12, using headless Edge driven over the DevTools protocol (real geolocation grant/deny, real network blocking/holding, a separately written oracle for the rules) plus the two browser test pages in `tests/`. Scripted checks: 114 run, 112 passed, 2 failed (one cause, below). The Developer still verifies everything under "Developer to verify" and the unticked checklist items.
+
+| Req | Evidence | Status |
+|---|---|---|
+| R1 live data | 70 forecast days over 10 US locations (Austin, Miami, Seattle, Anchorage, Phoenix, Minneapolis, Honolulu, New York, Denver, Chicago) matched an independently computed expectation for temperature, rain chance, wind, category, reminders, and scene; no mock data in the app | Pass, with a spec mismatch (finding 2) |
+| R2 / R2a search | Ambiguous list (5 + Cancel, 44 px rows, states shown), single-match zip goes straight through, unrecognized term and empty search show the message | Pass, except finding 1 |
+| R3 / R15 device location | Real permission grant (Boston test position) gave a forecast for those coordinates; real denial gave the message, focused manual search, and search still worked | Pass |
+| R4 saved location | Reload restores the last location with 0 geocoding requests; device location also restores; one saved location only | Pass |
+| R5 / R6 / R7 | Exactly 7 days, first is Today; each day matched the oracle with no stale values; place with state, date, "Today" vs "forecast", °F and mph visible | Pass |
+| R8 / R16 Info | Creator, Open-Meteo, thresholds and sources, privacy, and art/icon credits present as text; four sections collapsed by default and independent | Pass (art tool still blank, finding 4) |
+| R9 / R10 picker | On all 70 days the picker listed only that day's category (3 options); manual pick persisted across days and reload | Pass |
+| R11 layout | Phone: one column, no sideways scroll at 320, 360, 390, 430 px. Laptop: stage 768 px left, search, details, and upcoming days stacked in the right column | Pass on geometry; sketch match is the Developer's call |
+| R12 targets | Every control at least 44 x 44 px at 320 to 430 px, including picker and Info | Pass; see finding 5 for thumb reach |
+| R13 accessibility | axe-core (WCAG 2.2 AA + best practice): 0 violations on phone main, picker, Info, and laptop main. Text contrast by calculation 8.2:1 or better on all five scene colors. Selection not by color alone | Pass for flat placeholder colors; real art and screen readers are open |
+| R14 states | Real interception: forecast network error, HTTP 500, malformed JSON, empty forecast, one no-data day, geocoding down, and a held request each gave the right message with place kept and no broken character; each failure recovered on the next search | Pass |
+| R17 Info placement | Phone: full 390 x 844. Laptop: panel at x = 768, 512 wide, character column unchanged, outside click closes | Pass |
+| R18 deployment | HTTPS, HTTP redirects, all files served with correct types, full flow passes on the deployed URL | Pass |
+| Rules and variation | 72 + 27 unit checks (every boundary, independence over 2,000 runs); synthetic forecasts end to end for windy and snowy scenes, all four reminders at once, and boundaries 55/56, 70/71, 49/50% rain, 14/15 mph | Pass |
+
+**Findings for Developer decision**
+
+1. **Non-US term resolves to a US look-alike.** Searching "Tokyo" auto-selects "Tokyo Hill, Texas" because the geocoder's fuzzy match returns that single US result, so no list is shown. R2's acceptance says a non-US term shows "location not found". Option: when there is one match whose name does not match the typed text, show it as a one-item "did you mean" choice instead of selecting it.
+2. **R1 acceptance wording vs behavior.** R1 says changing the date triggers a new Open-Meteo request. The app fetches all 7 days once per location and date changes use that data (one request on load, none on day taps). Either reword R1 to "changing the location triggers a request and date changes use the already-fetched 7 days", or refetch on date change.
+3. **Real data never produced a windy day, a snowy day, or all four reminders** in the 10 locations, so those paths are proven by the synthetic-forecast run and unit tests rather than real forecasts.
+4. **Art credit placeholder.** The Info screen says the generation tool is "to be added".
+5. **Thumb reach.** Per the sketches, search, location, and info sit at the top of the phone screen; the customize button (82% down) and day strip are low. Worth watching in usability testing.
+
+**Developer to verify** (cannot be proven from here): the real phone and real laptop, including one-handed use; a screen reader (VoiceOver, TalkBack, or NVDA) announcing every icon-only control; dragging a browser window across 900 px with a reminder showing; the real device-location prompt; whether the layouts match the hand sketches; text contrast over the final art once it exists.
+
 ## Revisions
 
 Record material plan changes and why they were made.
