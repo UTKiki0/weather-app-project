@@ -9,7 +9,7 @@ import { deriveRecommendation } from './recommendation.js';
 import { getRecommendationState, setOutfitVariation } from './state.js';
 import {
   renderEmpty, renderLoading, renderError, renderNoData,
-  renderRecommendation, renderStrip, renderPicker,
+  renderRecommendation, renderStrip, renderPicker, LAPTOP,
 } from './render.js';
 
 const form = document.getElementById('search-form');
@@ -139,7 +139,7 @@ daysEl.addEventListener('click', (event) => {
 // ---- Info pill: tapping a reminder icon shows its wording (phone; always visible on laptop) ----
 
 pillEl.addEventListener('click', (event) => {
-  const button = event.target.closest('.reminder-btn');
+  const button = event.target.closest('button.reminder-btn');
   if (!button) return;
   const wasOpen = button.parentElement.classList.contains('open');
   closeReminders();
@@ -160,6 +160,11 @@ function closeReminders() {
     item.querySelector('.reminder-btn').setAttribute('aria-expanded', 'false');
   });
 }
+
+// Crossing the phone/laptop breakpoint changes how reminders render (button vs plain text)
+LAPTOP.addEventListener('change', () => {
+  if (place && days.length) showSelectedDay();
+});
 
 // ---- Customization picker (R9, R10) ----
 

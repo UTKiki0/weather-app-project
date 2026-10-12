@@ -101,6 +101,7 @@ Before testing, record the purpose, a few realistic tasks, non-leading prompts, 
 Record material plan changes and why they were made.
 
 - 2026-10-05: Replaced "use the top geocoding match, no disambiguation UI" (Main risks) with a pick-a-result list shown on submit when a search has more than one US match (R2a). Developer's request; a visible choice avoids silently showing the wrong city.
+- 2026-10-12: The accessibility pass found a layout bug the earlier phone checks missed: below about 390 px wide the page scrolled sideways (at 360 px the content was 389 px wide) because the grid column sized itself to its widest content. Fixed by pinning the columns to the available width; verified no overflow and 44 px targets from 320 to 430 px. Also added a main-screen `h1`, a 3:1 border for outfit options with a check mark for the selected one, and plain-text reminders on laptop (button only on phone).
 - 2026-10-05: Local server is `tools/serve.ps1` (PowerShell) because Python and Node are not installed.
 
 ## Saving transcripts

@@ -8,6 +8,7 @@
 </head>
 <body>
   <main class="app" id="main-view">
+    <h1 class="visually-hidden">Weather Wear</h1>
     <!-- Top bar: location search, device location, info -->
     <header class="top-bar">
       <form class="search" role="search" id="search-form">
@@ -74,7 +75,7 @@
         <img src="assets/ui/arrow-left.svg" alt="">
       </button>
 
-      <h1 id="info-title">About Weather Wear</h1>
+      <h2 class="info-title" id="info-title">About Weather Wear</h2>
       <p class="created-by">Created by<br><strong>Kjartan Knutson-Ho</strong></p>
 
       <details>
@@ -93,7 +94,7 @@
         <summary>Methodology</summary>
         <div class="info-body">
           <p>Values are rounded to whole numbers, then these rules pick the outfit and reminders.</p>
-          <h2>Outfit</h2>
+          <h3>Outfit</h3>
           <p>The outfit follows an <em>effective temperature</em>: the forecast temperature, minus 5°F when wind is
             15 mph or more, or the chance of rain is 50% or more.</p>
           <ul>
@@ -106,7 +107,7 @@
             <a href="https://fittheforecast.com/blog/what-to-wear-by-temperature" target="_blank" rel="noopener">Fit The Forecast</a> and
             <a href="https://www.nike.com/a/what-to-wear-by-temperature" target="_blank" rel="noopener">Nike</a>.
             These are informal consumer guides, not a medical standard.</p>
-          <h2>Reminders</h2>
+          <h3>Reminders</h3>
           <ul>
             <li>Umbrella: 50% or higher chance of precipitation.</li>
             <li>Sunscreen: UV index 3 or higher, where the

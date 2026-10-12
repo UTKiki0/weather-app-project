@@ -6,6 +6,9 @@ import {
   CATEGORY_LABEL, CATEGORY_EMOJI, describeSky,
 } from './content.js';
 
+// Same breakpoint as the laptop layout in style.css
+export const LAPTOP = window.matchMedia('(min-width: 900px)');
+
 const $ = (id) => document.getElementById(id);
 const stage = $('stage');
 const placeEl = $('place');
@@ -140,10 +143,15 @@ function reminderItem(name, wordingIndex) {
   const item = document.createElement('li');
   item.className = 'reminder';
 
-  const button = document.createElement('button');
-  button.type = 'button';
+  // Phone: a button that reveals the wording. Laptop: the wording is always visible, so the row is
+  // plain content rather than a control that does nothing (same class, so the layout matches).
+  const showsAsButton = !LAPTOP.matches;
+  const button = document.createElement(showsAsButton ? 'button' : 'div');
   button.className = 'reminder-btn';
-  button.setAttribute('aria-expanded', 'false');
+  if (showsAsButton) {
+    button.type = 'button';
+    button.setAttribute('aria-expanded', 'false');
+  }
 
   const icon = document.createElement('span');
   icon.className = 'reminder-icon';
