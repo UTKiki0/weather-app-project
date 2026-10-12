@@ -96,6 +96,67 @@ During implementation, follow the approved plan in working checkpoints and keep 
 
 Before testing, record the purpose, a few realistic tasks, non-leading prompts, and a consistent note format. For each session, use a non-identifying label and record the task, what the tester did or said, successes, barriers or questions, and possible changes. Keep observations separate from interpretations. After all three sessions, summarize the strongest findings and the improvement they support.
 
+> DRAFT proposed by the Agent for Developer review; nothing below has been run.
+
+### Purpose
+
+Find out whether a US college student can, without help, (1) learn what to wear today within about 30 seconds, (2) plan an outfit for a later day, (3) check another city, (4) notice and understand the extra reminders, (5) change the outfit, and (6) find out where the data comes from and what happens to their location. These map to user stories 1–4 in `research.md` plus the Info screen requirements (R16).
+
+### Setup
+
+- **Testers:** three peers who are US college students or close to it and who do not know how the app works. Label them P1, P2, P3. Record no names, photos, or faces.
+- **Devices:** the deployed URL, https://utkiki0.github.io/weather-app-project/. At least two testers use their own phone and one uses a laptop, so both layouts are observed. Note the device and browser for each session.
+- **State:** each tester starts on a fresh browser profile or private window, so there is no saved location. The Developer does not explain the app beforehand beyond "it suggests what to wear based on the weather".
+- **Recording:** the written notes are the record. Screen or audio recording only with the tester's spoken consent at the start, and delete it after notes are written up. The tester can stop at any time.
+- **Art status:** the 27 AI-generated images are still placeholders. Testing before the art is in measures the layout and flow but not whether the character is engaging. Decide before the first session, and note which version was tested.
+- **Roles:** the Developer facilitates and takes notes. If possible, a second person takes notes so the facilitator can stay quiet.
+
+### Tasks and prompts
+
+Read each task aloud; give no hints about where to tap. Ask the tester to think aloud.
+
+| # | Task (said to the tester) | What success looks like | Maps to |
+|---|---|---|---|
+| T1 | "It's morning and you're getting ready. Use this to figure out what you'd wear today." | States the temperature or conditions and an outfit idea without help; allows time to first answer. Observe how they set a location. | Story 1, R1–R4, R7 |
+| T2 | "You're packing for a trip on Thursday. Find out what the weather will be then and what you'd wear." | Reaches Thursday's view and can say it is a forecast for that day, not today. | Story 2, R5–R7 |
+| T3 | "A friend lives in Portland and you're visiting. Check what to wear there." | Gets a Portland forecast; handles the choice between several Portlands; can say which one they picked. | Story 3, R2, R2a |
+| T4 | "Is there anything else the app suggests you bring or do today?" | Notices the reminder icons, finds the wording, and understands it. | Story 4 |
+| T5 | "You don't like the outfit it's showing. See if you can pick another." | Finds the outfit picker and changes the outfit without help. | R9, R10 |
+| T6 | "Find out where this app gets its weather and what it does with your location." | Reaches the Info screen and finds the data source and privacy text. | R16, R17 |
+
+Optional if time allows: "Use your current location instead." Observe the permission prompt and, if declined, whether the fallback message is clear (R3, R15).
+
+**Neutral prompts to use during tasks:** "What are you thinking right now?", "What do you expect to happen if you tap that?", "What are you looking for?", "Tell me what you see here."
+
+**Do not:** name controls ("tap the shirt button"), explain the app, answer "is this right?", or react to successes and errors. If stuck for about a minute, ask "What would you try next?"; if still stuck, record it as a barrier and give the minimum hint needed to continue.
+
+**Closing questions (after all tasks):** "What was easiest?", "What was confusing or annoying?", "Was anything missing you expected?", "How much would you trust this to decide what you wear, and why?" (rate 1–5, then ask why), "Would you use it? When?"
+
+### Note format (one block per session)
+
+```
+Session: P_  | Device/browser: ___ | Layout: phone / laptop | Art: placeholders / final | Date: ___
+
+Task | What the tester did or said (observation) | Result (done / done with help / not done) | Barrier or question | Possible change (interpretation)
+T1 |
+T2 |
+T3 |
+T4 |
+T5 |
+T6 |
+Closing answers (quotes, trust rating 1-5):
+```
+
+Keep "what the tester did or said" to facts and short quotes. Put guesses about why only in the last column.
+
+### After the sessions
+
+Summarize in this file: a count of how many of the three testers completed each task unaided, the barriers that appeared more than once, the strongest finding, and the single improvement it supports. Add that improvement to the Verify and revise checklist and, if the intended result changes, to `spec.md`.
+
+### Results
+
+(To be filled in after testing: session notes P1–P3, findings summary, chosen improvement.)
+
 ## Revisions
 
 Record material plan changes and why they were made.
