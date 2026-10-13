@@ -50,38 +50,38 @@ During implementation, follow the approved plan in working checkpoints and keep 
 
 ### Build
 
-- [ ] Create or source the assets listed in `spec.md` (character, 12 outfit variations, 5 backgrounds, 5 condition icons, 4 reminder icons, 4 UI icons), starting early and iterating in parallel with the tasks below
-- [ ] Scaffold the project: `index.html`, `style.css`, `script.js`, `assets/` folder
-- [ ] Build the phone layout's static markup/CSS against [07-main-screen-phone.jpg](reference/07-main-screen-phone.jpg) (placeholder content, no live data yet)
-- [ ] Add the laptop two-column layout via media query against [08-main-screen-laptop.jpg](reference/08-main-screen-laptop.jpg)
-- [ ] Implement the Open-Meteo forecast fetch for a fixed test location and confirm returned values in the console (R1)
-- [ ] Add manual location search using Open-Meteo geocoding, including the "location not found" error state and the pick-a-result list for ambiguous matches (R2, R2a)
-- [ ] Add the device-location button with Geolocation API integration and the permission-denied fallback message (R3, R15)
-- [ ] Save and restore the most recently resolved location via `localStorage`, overwriting on each new location (R4)
-- [ ] Implement the recommendation engine: `effectiveTemp`, `outfitCategory`, and the four reminder triggers, from live weather values (recommendation state rules)
-- [ ] Build the 7-day strip and wire date selection to update the whole screen from the selected day's recommendation state (R5, R6)
-- [ ] Implement the per-(location, date) recommendation state object with independent random variation selection and `localStorage` persistence (content variation rules)
-- [ ] Wire the character art, background, temperature, and condition description to the recommendation state
-- [ ] Wire the info pill (precipitation/wind always shown; sunscreen/hydration icons conditional) to the recommendation state
-- [ ] Build the customization picker scoped to the active category, with manual picks overriding and persisting the stored variation index (R9, R10)
-- [ ] Add loading, empty-data, and service-error states for all API calls (R14)
-- [ ] Build the Info screen content (creator, data source, methodology, privacy, art credits) and the four collapsible sections (R16)
-- [ ] Wire Info screen navigation: full-screen on phone, right-half panel over Main's right column on laptop (R17)
-- [ ] Accessibility pass: contrast check over weather backgrounds, icon alt text/aria-labels, 44×44px touch targets on phone (R11–R13)
-- [ ] Use the approved screen drawings to guide layout and interaction work
-- [ ] Keep one recommendation state driving every visual and written output
-- [ ] Test and fix each checkpoint against the specification before starting the next
-- [ ] Commit meaningful working checkpoints
-- [ ] Deploy to a public HTTPS URL via GitHub Pages (R18)
+- [x] Create or source the assets listed in `spec.md` (character, 12 outfit variations, 5 backgrounds, 5 condition icons, 4 reminder icons, 4 UI icons), starting early and iterating in parallel with the tasks below
+- [x] Scaffold the project: `index.html`, `style.css`, `script.js`, `assets/` folder
+- [x] Build the phone layout's static markup/CSS against [07-main-screen-phone.jpg](reference/07-main-screen-phone.jpg) (placeholder content, no live data yet)
+- [x] Add the laptop two-column layout via media query against [08-main-screen-laptop.jpg](reference/08-main-screen-laptop.jpg)
+- [x] Implement the Open-Meteo forecast fetch for a fixed test location and confirm returned values in the console (R1)
+- [x] Add manual location search using Open-Meteo geocoding, including the "location not found" error state and the pick-a-result list for ambiguous matches (R2, R2a)
+- [x] Add the device-location button with Geolocation API integration and the permission-denied fallback message (R3, R15)
+- [x] Save and restore the most recently resolved location via `localStorage`, overwriting on each new location (R4)
+- [x] Implement the recommendation engine: `effectiveTemp`, `outfitCategory`, and the four reminder triggers, from live weather values (recommendation state rules)
+- [x] Build the 7-day strip and wire date selection to update the whole screen from the selected day's recommendation state (R5, R6)
+- [x] Implement the per-(location, date) recommendation state object with independent random variation selection and `localStorage` persistence (content variation rules)
+- [x] Wire the character art, background, temperature, and condition description to the recommendation state
+- [x] Wire the info pill (precipitation/wind always shown; sunscreen/hydration icons conditional) to the recommendation state
+- [x] Build the customization picker scoped to the active category, with manual picks overriding and persisting the stored variation index (R9, R10)
+- [x] Add loading, empty-data, and service-error states for all API calls (R14)
+- [x] Build the Info screen content (creator, data source, methodology, privacy, art credits) and the four collapsible sections (R16)
+- [x] Wire Info screen navigation: full-screen on phone, right-half panel over Main's right column on laptop (R17)
+- [x] Accessibility pass: contrast check over weather backgrounds, icon alt text/aria-labels, 44×44px touch targets on phone (R11–R13)
+- [x] Use the approved screen drawings to guide layout and interaction work
+- [x] Keep one recommendation state driving every visual and written output
+- [x] Test and fix each checkpoint against the specification before starting the next
+- [x] Commit meaningful working checkpoints
+- [x] Deploy to a public HTTPS URL via GitHub Pages (R18)
 
 ### Verify and revise
 
-- [ ] Check every specification requirement
-- [ ] Test multiple locations, current and forecast dates, recommendation categories, outfit and reminder variations, and failure states
-- [ ] Verify that eligible outfit and reminder variations are selected independently rather than as fixed pairs
-- [ ] Verify that returning to a previously selected date shows the same variations
-- [ ] Test the deployed app, independently of the local version, on a real phone and a laptop, including both screens, accessibility, and one-handed controls
-- [ ] Prepare the usability test below
+- [x] Check every specification requirement
+- [x] Test multiple locations, current and forecast dates, recommendation categories, outfit and reminder variations, and failure states
+- [x] Verify that eligible outfit and reminder variations are selected independently rather than as fixed pairs
+- [x] Verify that returning to a previously selected date shows the same variations
+- [x] Test the deployed app, independently of the local version, on a real phone and a laptop, including both screens, accessibility, and one-handed controls
+- [x] Prepare the usability test below
 - [ ] Test with three peers and record each session
 - [ ] Add the chosen improvement to this checklist, and update `spec.md` if the intended result changes
 - [ ] Implement, verify, and redeploy at least one meaningful revision
