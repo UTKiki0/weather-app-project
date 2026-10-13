@@ -161,19 +161,22 @@ Observations only (what testers said). Task-by-task results and closing answers 
 
 - **P1 (Mac laptop, Google Chrome, laptop layout):** the background "looks a little flat"; "a lot of deadspace to the right in the laptop version"; "a little bit odd that the character is just hovering above the background".
 - **P2 (Mac laptop, Google Chrome, laptop layout):** "deadspace to the right" (again); the outfit options "could be a little bit more vibrant".
-- **P3 (iPhone 17, Safari, phone layout):** lack of gender options for the character; "deadspace in the right"; "awkward floating of the main character". The phone layout has no right-hand column, so what P3 meant by "deadspace in the right" is unconfirmed (orientation and what was visible not yet recorded).
+- **P3 (iPhone 17, Safari, phone layout):** lack of gender options for the character; "deadspace in the right"; "awkward floating of the main character". The Developer later clarified that P3 was talking about the Info screen and that "right side" was a note-taking error, so this is not about the main screen's right column.
 
 #### Findings summary
 
 | Theme | P1 | P2 | P3 | Testers |
 |---|---|---|---|---|
-| Empty space on the right | yes (laptop) | yes (laptop) | yes (iPhone, referent unconfirmed) | 2 of 2 laptop testers; 3 of 3 mentions |
+| Empty space in the main screen's right column (laptop layout) | yes | yes | n/a (phone) | 2 of 2 laptop testers |
+| Empty space on the Info screen | | | yes | 1 of 3 |
 | Character floats instead of standing on the scene | yes | | yes | 2 of 3 |
 | Background looks flat | yes | | | 1 of 3 |
 | Outfit options could be more vibrant | | yes | | 1 of 3 |
 | No gender options for the character | | | yes | 1 of 3 |
 
-**Evidence added by the Agent (measurement, not opinion):** on the deployed app the empty gap between the details box and the Upcoming days strip is 338 px at 1280x720 (47% of the screen height), 520 px at 1440x900 (58%), and 700 px at 1920x1080 (65%), so it grows with screen size. For P3's device, a Chromium emulation of an iPhone 17 viewport (Safari itself was not tested) shows no blank space in portrait (402x874: the app fills the width). In landscape (874x402) the phone layout is a 480 px column centered on the screen, leaving 197 px blank on each side, and the character is only 33 px tall because the stage is 244 px high. This is one possible reading of P3's comment, not a confirmed one.
+**Evidence added by the Agent (measurement, not opinion):** on the deployed app the empty gap between the details box and the Upcoming days strip is 338 px at 1280x720 (47% of the screen height), 520 px at 1440x900 (58%), and 700 px at 1920x1080 (65%), so it grows with screen size. For P3's Info-screen comment, measured on the deployed app in a Chromium emulation of an iPhone 17 viewport (402x874; Safari itself was not tested): the four collapsed sections end at y = 347, leaving 60% of the screen empty below them, and the section labels reach only 41% of each row's width. On the laptop's Info panel (512x720) 51% of the panel is empty below the sections. Sketch 09 centers the "Created By" text; the app left-aligns it.
+
+**Found by the Agent, not reported by any tester:** in phone landscape (874x402) the layout is a 480 px column centered on the screen with 197 px blank on each side, and the character is only 33 px tall because the stage is 244 px high.
 
 **Agent interpretations (to confirm, not findings):** the empty space is the middle of the laptop's right column, which holds a small details box at the top and the day strip at the bottom per sketch 08. The floating comments fit the character being centered in the stage with no ground contact or shadow, while every background has a ground plane lower in the frame. "Flat" may refer to the illustrated art or to the lack of depth around the character; one mention is not enough to say. The gender-options request is outside `spec.md` (general character customization is out of scope).
 
