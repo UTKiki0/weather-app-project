@@ -96,7 +96,7 @@ During implementation, follow the approved plan in working checkpoints and keep 
 
 Before testing, record the purpose, a few realistic tasks, non-leading prompts, and a consistent note format. For each session, use a non-identifying label and record the task, what the tester did or said, successes, barriers or questions, and possible changes. Keep observations separate from interpretations. After all three sessions, summarize the strongest findings and the improvement they support.
 
-> DRAFT proposed by the Agent for Developer review; nothing below has been run.
+> Drafted by the Agent; reviewed by the Developer on 2026-10-12 and ready to use. No sessions have been run yet.
 
 ### Purpose
 
