@@ -46,4 +46,32 @@ When the Developer directs the Agent to save the transcript, save the entire cur
 
 # Project
 
-Fill in as the project takes shape: how to run it locally, how to test it, and any commands or structure that aren't obvious from the code.
+> Drafted by the Agent; reviewed by the Developer on 2026-10-12 ("in order").
+
+Weather Wear: a static browser app (plain HTML, CSS, and ES modules; no build step, no package manager, no API keys). Live at https://utkiki0.github.io/weather-app-project/ (GitHub Pages, `master` branch, repo root).
+
+## Run it locally
+
+ES modules and the Geolocation API need `http://localhost`, not `file://`. Python and Node are not installed on the development machine, so use the PowerShell server:
+
+`powershell -NoProfile -ExecutionPolicy Bypass -File tools\serve.ps1` (serves the project at http://localhost:8000/; add `-Port 8080` to change it). Stop it with Ctrl+C.
+
+## Test it
+
+- Unit tests are plain pages with assertions; open them through the local server and look for `PASS: N checks passed` at the top: `tests/recommendation-test.html` (outfit and reminder rules, variations, persistence), `tests/weather-test.html` (daytime reduction and sky-code rule), `tests/geocode-test.html` (search outcomes). Run all three after any change to the matching module.
+- `tools\check-art.ps1` audits the 27 art PNGs (dimensions, transparency, background contrast against the navy text).
+- Checking the app in a browser, including both layouts (phone under 900 px wide, laptop 900 px and up), is the Developer's final verification; screenshots or run output from the Agent are evidence, not approval.
+- After a push, GitHub Pages serves files with a 10 minute cache: wait, or add a query string, before concluding a deploy did not take effect.
+
+## Structure
+
+- `index.html`, `style.css`, `main.js` (entry point: wires everything).
+- Data and rules: `weather.js` (Open-Meteo forecast and daytime reduction), `geocode.js` (place search), `device-location.js`, `recommendation.js` (pure rules, no DOM), `state.js` (one recommendation state per location and date), `storage.js` (localStorage, always wrapped in try/catch).
+- Presentation: `render.js` (draws only from the state), `content.js` (reminder wording and sky text), `info.js` (Info screen).
+- `assets/` holds the art at fixed paths (see `assets/README.md`; `assets/art-prompts.md` and `generation-log.json` record how it was made); `reference/` holds the research images and hand-drawn screens.
+
+## Conventions
+
+- `spec.md` owns requirements and `plan.md` owns the checklist and verification log; record changes in their Revisions sections and mark them pending until the Developer approves. Never tick checklist boxes or mark approvals for the Developer.
+- Keep one recommendation state driving every visual and written output; change rules in `recommendation.js` and add a test.
+- Dev scripts and test pages must not be committed with secrets; no secrets are needed.
