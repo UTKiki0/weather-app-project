@@ -1,0 +1,333 @@
+commit a3a29fade95d8296871f0e0f37949256dab029e0
+Author: UTKiki0
+Date:   2026-10-13 01:05:52 -0500
+
+Update plan.md: tick verified usability-revision items
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 9dedb7dfffd1073b4a6b8bda0a230d8c4e0dd6c2
+Author: UTKiki0
+Date:   2026-10-13 01:05:14 -0500
+
+Add debrief protocol and Project 3 debrief transcript
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit d19747213de7edf7fc3d4a3c92c98e7cd510ff2a
+Author: UTKiki0
+Date:   2026-10-13 00:25:14 -0500
+
+Save build session transcript (verification, deployment, usability revisions)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 95c0f6bb5ee7653860767bdccf7cd6ee32daf8fc
+Author: UTKiki0
+Date:   2026-10-13 00:21:31 -0500
+
+Verification log: deployed results for the revision from usability testing
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 2671537da0d0e53061bc34d284f2f7091bc143f7
+Author: UTKiki0
+Date:   2026-10-13 00:03:11 -0500
+
+Revisions from usability testing: inline laptop outfit picker, larger grounded character with shadow, centered Info screen with bordered roomy sections
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 0484d7395c90be8099c1f4cb3a62a4366dcc16f1
+Author: UTKiki0
+Date:   2026-10-12 23:20:15 -0500
+
+Spec and plan: revisions chosen after usability testing (inline laptop picker, grounded larger character, Info screen layout, phone landscape out of scope)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 910fdec0fce9494a0e09998aaa0415ff42a13e19
+Author: UTKiki0
+Date:   2026-10-12 23:14:28 -0500
+
+Usability notes: P3's empty-space comment was about the Info screen; add Info-screen measurements
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 453137d9f94a5506a5e6871e76f1fa96771530fc
+Author: UTKiki0
+Date:   2026-10-12 23:11:09 -0500
+
+Usability notes: record tester devices; correct the empty-space tally for P3 (phone)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit a2d8ffaf94c545affba1f961b7c600f5800ba5c1
+Author: UTKiki0
+Date:   2026-10-12 23:07:24 -0500
+
+Record usability session observations and findings summary
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit f41cd4e98d2e0d30812e8d335cf1285de2c9ae4c
+Author: UTKiki0
+Date:   2026-10-12 23:01:53 -0500
+
+Mark usability test plan as reviewed by the Developer
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit be0dacda04d1d12b6fec04c1d8818703bdfee99b
+Author: UTKiki0
+Date:   2026-10-12 23:00:24 -0500
+
+Developer ticks completed Build and Verify checklist items
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit b53383e275f27c2fac3a55f8c28ed327863e0fc5
+Author: UTKiki0
+Date:   2026-10-12 22:54:24 -0500
+
+Record Developer's device checks and review of spec revisions and AGENTS.md project section
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 5c75132947531113a82580eac5318df00fd394ed
+Author: UTKiki0
+Date:   2026-10-12 22:51:50 -0500
+
+Verification log: deployed regression with art and Developer's device check
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit acb4a88e0cf5fdb924e2051838f7ecb214519c1c
+Author: UTKiki0
+Date:   2026-10-12 18:11:41 -0500
+
+Add AI-generated art (27 PNGs), art records and review sheets, credit text, tab icon; record art integration checks
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit dc4fe1008985f4786704db1a4da24173d0fa808c
+Author: UTKiki0
+Date:   2026-10-12 17:51:47 -0500
+
+Show neutral base character in empty/loading/error states; size the character to fit the stage and clear the info pill
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit e42724ed9bfddcd5963f3e0c10aec1481f1a1128
+Author: UTKiki0
+Date:   2026-10-12 16:52:49 -0500
+
+Verification log: record resolution of findings 1 and 2
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 07f3a482fe4249a2bbfa99bea82466af1877c90d
+Author: UTKiki0
+Date:   2026-10-12 16:45:37 -0500
+
+Search: offer a 'Did you mean' list when no result matches the typed text (R2a); reword R1 acceptance; add search outcome tests
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 48ce3db291e02616536e36c341bcbcfb1e0ebc4f
+Author: UTKiki0
+Date:   2026-10-12 16:41:33 -0500
+
+Add verification log: scripted checks against the deployed app and open findings
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 926816dcbd24f19bb3c4c2452ac1d9e9b3efd326
+Author: UTKiki0
+Date:   2026-10-12 16:27:33 -0500
+
+Pick sky code from daytime hourly codes with precipitation override (option D); add weather tests
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit d6bb6096b4244d1d18d8c86fcf00392807c4910e
+Author: UTKiki0
+Date:   2026-10-12 16:20:56 -0500
+
+Draft usability testing plan: purpose, setup, tasks, neutral prompts, note format
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit ef7b7c8dc0f81760196355ff4cd7b6a526cf34b0
+Author: UTKiki0
+Date:   2026-10-12 16:17:05 -0500
+
+Record GitHub Pages deployment and deployed-URL checks in plan
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit be73ca158fa55dcb64074e18bd9694535ae64c7f
+Author: UTKiki0
+Date:   2026-10-12 16:11:51 -0500
+
+Accessibility pass (R11-R13): fix narrow-phone overflow, add h1, 3:1 option borders, laptop reminder semantics
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 60cc7880329c677c9435c5577db4702fb70ed0c6
+Author: UTKiki0
+Date:   2026-10-05 18:11:39 -0500
+
+Checkpoint 6: Info screen (R16, R17) and verified loading/empty/error states (R14)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 41a389f3b6ffc60786502cf4e15dd0ade4fe83e2
+Author: UTKiki0
+Date:   2026-10-05 18:03:57 -0500
+
+Checkpoint 5: wire UI to the recommendation state (day strip, character, pill, reminders, picker)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 06e2aa17e44c244abd1a9fbfc0617f600b8893b6
+Author: UTKiki0
+Date:   2026-10-05 17:55:58 -0500
+
+Checkpoint 4: recommendation engine, per-(location, date) state with persisted variations, and tests
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 45f076b38dc5b536b0da131a5759b7668bedc9a0
+Author: UTKiki0
+Date:   2026-10-05 17:51:40 -0500
+
+Checkpoint 3d: save and restore most recent location in localStorage (R4)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit d7a3fff720d0a4dbb362e00631da634dec7e503a
+Author: UTKiki0
+Date:   2026-10-05 17:48:40 -0500
+
+Checkpoint 3c: device location button with denied/unavailable fallback (R3, R15)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 2abdf3035478fb68fefc952c38ed4eca7acb96ce
+Author: UTKiki0
+Date:   2026-10-05 17:47:18 -0500
+
+Checkpoint 3b: US location search with pick-a-result list (R2, R2a); update spec and plan
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit a22e454ad2c444829e2f8103d2f087c822005a63
+Author: UTKiki0
+Date:   2026-10-05 17:43:05 -0500
+
+Checkpoint 3a: Open-Meteo forecast fetch with daytime reduction; record spec revision
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit dbf064aac7bd3edef46f569feaee2b06ff28c102
+Author: UTKiki0
+Date:   2026-10-05 17:39:25 -0500
+
+Add PowerShell dev server for local testing (modules and geolocation need localhost)
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit a0815bc4547b7fb3a89c4f813d9008ae6317cb35
+Author: UTKiki0
+Date:   2026-10-05 17:36:35 -0500
+
+Checkpoint 2: laptop two-column layout via media query
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit 37f367a3611aa60144eda07341a94d95bceb82e2
+Author: UTKiki0
+Date:   2026-10-05 17:32:50 -0500
+
+Checkpoint 1: scaffold and static phone layout with placeholder content and Lucide UI icons
+
+Co-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>
+
+----
+commit a3e47f46526ca1f8298fd12f1984e0bc0005bad0
+Author: UTKiki0
+Date:   2026-10-05 14:13:22 -0500
+
+Fill in and approve plan.md: approach, ordered build checklist, and transcripts
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+----
+commit 623070586055cbc91fae74fa7ab483b6ec9bd886
+Author: UTKiki0
+Date:   2026-10-05 13:59:21 -0500
+
+Fill in spec.md: screen designs, requirements, recommendation state, content variation, assets, and out of scope
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+----
+commit c409a435625317c2cf4288b9c6f66e6493c4f249
+Author: UTKiki0
+Date:   2026-09-28 17:26:59 -0500
+
+Mark research.md approved and save research transcript
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+----
+commit 1da07aa5b626ce8a2f29a9dfaf49ba51be83e932
+Author: UTKiki0
+Date:   2026-09-28 17:25:08 -0500
+
+Fill in research.md: context of use, user stories, references, and decisions
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+----
+commit a5c4b2356b50c99f0040c6c5196a518eed41f439
+Author: UTKiki0
+Date:   2026-09-28 16:14:30 -0500
+
+Initial commit: Weather App Project docs and structure
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+
+----
