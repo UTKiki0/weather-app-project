@@ -155,7 +155,27 @@ Summarize in this file: a count of how many of the three testers completed each 
 
 ### Results
 
-(To be filled in after testing: session notes P1–P3, findings summary, chosen improvement.)
+#### Session notes (as reported by the Developer, 2026-10-12)
+
+Observations only (what testers said). Task-by-task results, device and browser, and closing answers (trust rating) were not reported to the Agent; the Developer's own session notes hold them. Add them here if they should be part of this record.
+
+- **P1:** the background "looks a little flat"; "a lot of deadspace to the right in the laptop version"; "a little bit odd that the character is just hovering above the background".
+- **P2:** "deadspace to the right" (again); the outfit options "could be a little bit more vibrant".
+- **P3:** lack of gender options for the character; "deadspace in the right"; "awkward floating of the main character".
+
+#### Findings summary
+
+| Theme | P1 | P2 | P3 | Testers |
+|---|---|---|---|---|
+| Empty space on the right (laptop) | yes | yes | yes | 3 of 3 |
+| Character floats instead of standing on the scene | yes | | yes | 2 of 3 |
+| Background looks flat | yes | | | 1 of 3 |
+| Outfit options could be more vibrant | | yes | | 1 of 3 |
+| No gender options for the character | | | yes | 1 of 3 |
+
+**Evidence added by the Agent (measurement, not opinion):** on the deployed app the empty gap between the details box and the Upcoming days strip is 338 px at 1280x720 (47% of the screen height), 520 px at 1440x900 (58%), and 700 px at 1920x1080 (65%), so it grows with screen size.
+
+**Agent interpretations (to confirm, not findings):** the empty space is the middle of the laptop's right column, which holds a small details box at the top and the day strip at the bottom per sketch 08. The floating comments fit the character being centered in the stage with no ground contact or shadow, while every background has a ground plane lower in the frame. "Flat" may refer to the illustrated art or to the lack of depth around the character; one mention is not enough to say. The gender-options request is outside `spec.md` (general character customization is out of scope).
 
 ## Verification log
 
