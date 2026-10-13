@@ -53,6 +53,12 @@
          shows when its icon is tapped. Always available to screen readers. -->
     <ul class="pill" id="pill" aria-label="Weather details" hidden></ul>
 
+    <!-- Laptop only: the outfit picker shown inline in the right column (phone uses the button and dialog). -->
+    <section class="outfit-panel" id="outfit-panel" aria-labelledby="outfit-panel-title" hidden>
+      <h2 id="outfit-panel-title"></h2>
+      <div class="outfit-options" id="outfit-panel-options"></div>
+    </section>
+
     <!-- 7-day strip: today + 6 days, doubles as the date picker -->
     <nav class="day-strip" id="day-strip" aria-labelledby="day-strip-title">
       <h2 class="strip-title" id="day-strip-title">Upcoming days</h2>
@@ -79,6 +85,7 @@
       <h2 class="info-title" id="info-title">About Weather Wear</h2>
       <p class="created-by">Created by<br><strong>Kjartan Knutson-Ho</strong></p>
 
+      <div class="info-sections">
       <details>
         <summary>Weather data</summary>
         <div class="info-body">
@@ -148,6 +155,7 @@
             © Lucide Icons and Contributors. Some Lucide icons derive from Feather, MIT License, © Cole Bemis.</p>
         </div>
       </details>
+      </div>
     </section>
   </div>
 

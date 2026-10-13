@@ -18,6 +18,8 @@ const conditionEl = $('condition');
 const characterEl = $('character');
 const customizeBtn = $('customize-btn');
 const pillEl = $('pill');
+const outfitPanelEl = $('outfit-panel');
+const outfitPanelOptionsEl = $('outfit-panel-options');
 const daysEl = $('days');
 
 // ---- Stage views: each one fully replaces what the previous one showed (R6: no stale data) ----
@@ -52,6 +54,8 @@ function showMessageStage({ place, when = '', condition }) {
   customizeBtn.disabled = true;
   pillEl.hidden = true;
   pillEl.replaceChildren();
+  outfitPanelEl.hidden = true;
+  outfitPanelOptionsEl.replaceChildren();
 }
 
 /** The full recommendation: character, background, temperature, description, pill. */
@@ -67,6 +71,7 @@ export function renderRecommendation(place, state, isToday) {
   renderCharacter(state);
   customizeBtn.disabled = false;
   renderPill(state);
+  renderOutfitPanel(state);
 }
 
 function renderCharacter(state) {
@@ -74,7 +79,7 @@ function renderCharacter(state) {
   const style = state.outfitVariationIndex + 1;
   characterEl.setAttribute('role', 'img');
   characterEl.setAttribute('aria-label', `Character in a ${category.toLowerCase()} weather outfit, style ${style}`);
-  characterEl.replaceChildren(outfitArt(state.outfitCategory, state.outfitVariationIndex, true));
+  characterEl.replaceChildren(figure(outfitArt(state.outfitCategory, state.outfitVariationIndex, true)));
 }
 
 // Outfit art at its final path; a labeled placeholder shows until the file exists.
@@ -211,9 +216,26 @@ export function renderStrip(summaries, dates, selectedIndex) {
 
 // ---- Customization picker (R9, R10): only the active category's variations ----
 
+// Phone: the options are shown in a dialog opened by the customize button.
 export function renderPicker(state) {
-  $('outfit-dialog-title').textContent = `${CATEGORY_LABEL[state.outfitCategory]} weather outfits`;
-  $('outfit-options').replaceChildren(...Array.from({ length: OUTFIT_VARIATIONS }, (_, index) => {
+  $('outfit-dialog-title').textContent = pickerTitle(state);
+  $('outfit-options').replaceChildren(...outfitOptionButtons(state));
+}
+
+// Laptop: the same options are shown inline in the right column (no button). CSS shows this panel
+// on laptop only; it is filled on every render so it is current when the layout switches.
+function renderOutfitPanel(state) {
+  $('outfit-panel-title').textContent = pickerTitle(state);
+  outfitPanelOptionsEl.replaceChildren(...outfitOptionButtons(state));
+  outfitPanelEl.hidden = false;
+}
+
+function pickerTitle(state) {
+  return `${CATEGORY_LABEL[state.outfitCategory]} weather outfits`;
+}
+
+function outfitOptionButtons(state) {
+  return Array.from({ length: OUTFIT_VARIATIONS }, (_, index) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'outfit-option';
@@ -222,7 +244,7 @@ export function renderPicker(state) {
     button.setAttribute('aria-label', `${CATEGORY_LABEL[state.outfitCategory]} outfit ${index + 1}`);
     button.append(outfitArt(state.outfitCategory, index, false));
     return button;
-  }));
+  });
 }
 
 // ---- Date text ----
@@ -248,15 +270,24 @@ function monthDay(date, short = false) {
 // Neutral character shown when there is no recommendation (empty, loading, error, no data).
 // Nothing is shown if the file is missing.
 function neutralCharacter() {
-  return art('assets/character-base.png', () => document.createElement('span'));
+  return figure(art('assets/character-base.png', () => document.createElement('span')));
+}
+
+// The character figure: sizes itself to the stage and carries the ground shadow (see style.css).
+function figure(child) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'character-figure';
+  wrapper.append(child);
+  return wrapper;
 }
 
 // Phone: the info pill overlays the bottom of the stage and grows taller when reminders wrap onto
-// extra rows, so keep the character clear of however tall it currently is. (Laptop: the pill is in
+// extra rows, so keep the character clear of however tall it currently is. The art has transparent
+// margin below the ground shadow, which may overlap the pill. (Laptop: the pill is in
 // the right column and nothing is reserved; CSS supplies the default for when the pill is hidden.)
 function updateCharacterClearance() {
-  const clearance = LAPTOP.matches || pillEl.hidden ? 0 : pillEl.offsetHeight + 24;
-  characterEl.style.paddingBottom = clearance ? `${Math.max(clearance, 72)}px` : '';
+  const clearance = LAPTOP.matches || pillEl.hidden ? 0 : pillEl.offsetHeight + 8; // 8 px gap above the pill
+  characterEl.style.paddingBottom = clearance ? `${Math.max(clearance, 40)}px` : '';
 }
 new ResizeObserver(updateCharacterClearance).observe(pillEl);
 LAPTOP.addEventListener('change', updateCharacterClearance);

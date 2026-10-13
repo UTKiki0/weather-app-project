@@ -148,18 +148,46 @@ body {
 .temp { font-size: 3.5rem; font-weight: 700; line-height: 1.1; }
 .condition { font-size: 1rem; }
 
+/* The character stands near the bottom of the scene. The figure sizes itself from the space
+   available (container query units), a little taller than that space because the art has
+   transparent margin at the top, and a soft shadow under the feet grounds it. */
 .character {
+  --fill: 1.06;              /* figure height as a fraction of the available height */
   flex: 1;
   align-self: stretch;
   display: grid;
-  grid-template: minmax(0, 1fr) / minmax(0, 1fr); /* definite area, so the image height can be limited to it */
-  place-items: center;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: end center;
+  container-type: size;
   font-size: 9rem;
   min-height: 0;
-  padding-bottom: 72px; /* phone: keep the character clear of the info pill and customize button */
+  padding-bottom: 48px;      /* phone: render.js sets this from the info pill's real height */
 }
 
-.character img { max-width: 80%; max-height: 100%; object-fit: contain; }
+.character-figure {
+  position: relative;
+  height: min(calc(var(--fill) * 100cqh), 138cqw); /* width never exceeds 92% of the area */
+  aspect-ratio: 2 / 3;
+  display: grid;
+  place-items: center;
+}
+.character-figure::before { /* ground shadow: the feet stand at 92% of the image height */
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 4.2%;
+  height: 6%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(18, 32, 46, 0.4), rgba(18, 32, 46, 0));
+}
+.character-figure img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(18, 32, 46, 0.2)); /* lifts the figure off the scene */
+}
 
 /* Labeled placeholders shown until the art files exist */
 .character-fallback, .option-fallback {
@@ -289,21 +317,22 @@ body {
   .app {
     max-width: none;
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto auto 1fr auto;
     grid-template-areas:
       "stage top"
       "stage pill"
+      "stage picker"
       "stage strip";
   }
 
   .top-bar { border-bottom: 0; padding: 16px 24px; }
   .search-status, .results { left: 24px; right: 24px; }
 
-  /* Customize button moves to the stage's top-right, as in the sketch */
-  .customize-btn { top: 16px; bottom: auto; right: 16px; }
+  /* No customize button on laptop: the outfit picker is shown inline in the right column */
+  .customize-btn { display: none; }
 
   .stage-header { align-self: flex-start; text-align: left; padding: 24px; }
-  .character { font-size: 14rem; padding-bottom: 0; } /* laptop: the pill lives in the right column */
+  .character { font-size: 14rem; padding-bottom: 20px; } /* laptop: the pill lives in the right column */
 
   /* Pill becomes a vertical, fully labeled list in the right column */
   .pill {
@@ -409,19 +438,19 @@ body {
   overflow-y: auto;
   background: var(--panel);
 }
-.info-panel h2.info-title { margin: 8px 0 4px; font-size: 1.4rem; }
-.created-by { margin: 0 0 24px; line-height: 1.5; }
+.info-panel h2.info-title { margin: 4px 0 8px; font-size: 1.4rem; text-align: center; }
+.created-by { margin: 0 0 28px; line-height: 1.5; font-size: 1.05rem; text-align: center; }
 .info-back { margin-left: -8px; border: 2px solid var(--ink); }
 
-.info-panel details { border-top: 1px solid var(--border); }
-.info-panel details:last-of-type { border-bottom: 1px solid var(--border); }
+.info-sections { border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; }
+.info-panel details + details { border-top: 1px solid var(--ink); }
 .info-panel summary {
   display: flex;
   align-items: center;
   gap: 12px;
-  min-height: var(--tap);
-  padding: 8px 4px;
-  font-size: 1.1rem;
+  min-height: 64px;
+  padding: 12px 16px;
+  font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
   list-style: none;
@@ -439,7 +468,7 @@ body {
 .info-panel details[open] summary::before { transform: rotate(45deg); }
 .info-panel summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
 
-.info-body { padding: 0 4px 16px 24px; line-height: 1.5; }
+.info-body { padding: 0 16px 16px 40px; line-height: 1.5; }
 .info-body h3 { margin: 16px 0 4px; font-size: 1rem; }
 .info-body p, .info-body ul { margin: 0 0 12px; }
 .info-body ul { padding-left: 20px; }
@@ -456,3 +485,62 @@ body {
 }
 @keyframes info-slide-in { from { transform: translateX(100%); } }
 @media (prefers-reduced-motion: reduce) { .info-panel { animation: none; } }
+
+/* ---- Inline outfit picker (laptop only; phone uses the button and dialog) ---- */
+.outfit-panel { display: none; }
+
+@media (min-width: 900px) {
+  .outfit-panel {
+    grid-area: picker;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin: 8px 24px;
+  }
+  .outfit-panel[hidden] { display: none; }
+  .outfit-panel h2 { margin: 0 0 12px; font-size: 1.1rem; }
+  .outfit-panel .outfit-options {
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr); /* definite height, so the tile art scales to the space */
+  }
+  .outfit-panel .outfit-option {
+    min-height: 0;
+    padding: 12px;
+    grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  }
+  .outfit-panel .outfit-option img { max-width: 100%; max-height: 100%; }
+}
+
+/* ---- Wide laptop: the figure may use the whole height of the scene ----
+   The header text is left-aligned and kept to the left 40% of the scene, so it stays clear of
+   the figure's head, which is centered. */
+@media (min-width: 1200px) {
+  .character {
+    --fill: 0.94;
+    position: absolute;
+    inset: 0;
+    padding: 16px 0 24px;
+  }
+  .stage-header { position: relative; z-index: 2; max-width: 40%; }
+}
+
+/* ---- Short laptop windows: tighten the right column so the outfit picker keeps a usable size ----
+   Browser toolbars eat screen height, so many laptop windows are only 600-740 px tall. */
+@media (min-width: 900px) and (max-height: 740px) {
+  .top-bar { padding: 8px 24px; }
+  .pill { margin: 4px 24px; padding: 2px 16px; font-size: 1rem; }
+  .metric, .reminder-btn { min-height: 36px; }
+  .reminder-icon { width: 36px; font-size: 1.2rem; }
+  .reminder-icon img { width: 26px; height: 26px; }
+  .outfit-panel { margin: 4px 24px; }
+  .outfit-panel h2 { margin-bottom: 8px; }
+  .day-strip { padding: 8px 24px; }
+  .day { min-height: 64px; }
+}
+
+/* The picker never collapses: if the column is too short for everything, the page scrolls instead. */
+@media (min-width: 900px) {
+  .outfit-panel { min-height: 150px; }
+}

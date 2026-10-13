@@ -164,6 +164,7 @@ function closeReminders() {
 
 // Crossing the phone/laptop breakpoint changes how reminders render (button vs plain text)
 LAPTOP.addEventListener('change', () => {
+  if (dialog.open) dialog.close(); // the laptop layout has an inline picker instead of the dialog
   if (place && days.length) showSelectedDay();
 });
 
@@ -176,13 +177,20 @@ document.getElementById('customize-btn').addEventListener('click', () => {
   dialog.showModal();
 });
 
-document.getElementById('outfit-options').addEventListener('click', (event) => {
+// Choosing an outfit works the same in the phone dialog and the laptop's inline panel
+function chooseOutfit(event) {
   const option = event.target.closest('.outfit-option');
-  if (!option) return;
-  setOutfitVariation(place, days[selectedIndex].date, Number(option.dataset.variation));
+  if (!option || !place || !days.length) return;
+  const variation = Number(option.dataset.variation);
+  const fromPanel = event.currentTarget.id === 'outfit-panel-options';
+  setOutfitVariation(place, days[selectedIndex].date, variation);
   dialog.close();
   showSelectedDay();
-});
+  // The panel is rebuilt on every render; put keyboard focus back on the same tile
+  if (fromPanel) document.querySelector(`#outfit-panel-options .outfit-option[data-variation="${variation}"]`)?.focus();
+}
+document.getElementById('outfit-options').addEventListener('click', chooseOutfit);
+document.getElementById('outfit-panel-options').addEventListener('click', chooseOutfit);
 
 document.getElementById('outfit-close').addEventListener('click', () => dialog.close());
 
