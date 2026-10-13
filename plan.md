@@ -82,20 +82,20 @@ During implementation, follow the approved plan in working checkpoints and keep 
 - [x] Verify that returning to a previously selected date shows the same variations
 - [x] Test the deployed app, independently of the local version, on a real phone and a laptop, including both screens, accessibility, and one-handed controls
 - [x] Prepare the usability test below
-- [ ] Test with three peers and record each session
-- [ ] Add the chosen improvement to this checklist, and update `spec.md` if the intended result changes
-- [ ] Implement, verify, and redeploy at least one meaningful revision
-- [ ] Revision from testing (chosen 2026-10-12): laptop right column shows the outfit picker inline in its lower half and the customization button is removed on laptop; phone unchanged (R9)
-- [ ] Revision from testing: the character is larger, stands lower on the scene, and has a ground shadow (phone and laptop)
-- [ ] Revision from testing: Info screen with "Created by" centered and the four sections in one bordered, roomier box (R16)
-- [ ] Revision from testing: phone landscape left as is and recorded in `spec.md` Out of scope (no code change)
-- [ ] Re-verify the revision on the deployed app: earlier suites still pass, the new layout at many screen sizes, accessibility (axe, 44 px targets), and text contrast over the art
+- [x] Test with three peers and record each session
+- [x] Add the chosen improvement to this checklist, and update `spec.md` if the intended result changes
+- [x] Implement, verify, and redeploy at least one meaningful revision
+- [x] Revision from testing (chosen 2026-10-12): laptop right column shows the outfit picker inline in its lower half and the customization button is removed on laptop; phone unchanged (R9)
+- [x] Revision from testing: the character is larger, stands lower on the scene, and has a ground shadow (phone and laptop)
+- [x] Revision from testing: Info screen with "Created by" centered and the four sections in one bordered, roomier box (R16)
+- [x] Revision from testing: phone landscape left as is and recorded in `spec.md` Out of scope (no code change)
+- [x] Re-verify the revision on the deployed app: earlier suites still pass, the new layout at many screen sizes, accessibility (axe, 44 px targets), and text contrast over the art
 
 ### Deliver
 
-- [ ] Confirm all brief deliverables, sources, privacy information, and asset credits
-- [ ] Save all chat transcripts
-- [ ] Complete the debrief
+- [x] Confirm all brief deliverables, sources, privacy information, and asset credits
+- [x] Save all chat transcripts
+- [x] Complete the debrief
 
 ## Usability testing
 
