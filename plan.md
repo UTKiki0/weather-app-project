@@ -199,6 +199,10 @@ The 27 AI-generated images were made in a separate session (transcript in `trans
 - Layout with the art found a bug: on laptop the 800x1200 character overflowed the stage (cropped at the knees, page scrollbar), and at 320 px wide it collided with a two-row info pill. Fixed by sizing the character to the stage and reserving space for the pill's actual height; verified at 14 sizes from 320x568 to 2560x1080 (28 checks).
 - Regression of every earlier suite against the build with art: 70 real forecast days vs the oracle (26), synthetic rule cases (10), failure states (13), search and location (20), layout and accessibility (27); unit suites 72, 27, and 19. All pass. Console: 0 errors, 0 404s (a tab icon was added so the browser's automatic favicon request no longer 404s).
 
+After the push (commit `acb4a88`), the same checks were rerun against the deployed URL: all 27 art files served as `image/png` and byte-identical to the local files (SHA-256), so the contrast results carry over; art loading 14 of 14; character fit and clearance at 14 sizes 28 of 28; 70 real forecast days vs the oracle 26 of 26; synthetic rule cases 10 of 10; failure states 13 of 13; search and device location 20 of 20; layout, Info, and accessibility 27 of 27. One early failure on the deployed run was my test measuring a 500 KB image before it finished loading; it passed once the test waited for the image.
+
+Developer-reported (2026-10-12): checked the deployed app on a laptop and a phone and everything looked good. Which specific items were covered (one-handed use, a screen reader, the real location prompt, window resizing across 900 px, match to the sketches) was not recorded; confirm before ticking the related checklist items.
+
 Developer decisions: keep the art as PNG (a JPEG conversion of the backgrounds would cut 8.3 MB to about 0.5 MB, offered and declined); the unused base-character originals (v1, v2) were deleted; the review sheets are committed.
 
 ## Revisions
