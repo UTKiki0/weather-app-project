@@ -29,9 +29,9 @@ Two screens: **Main** (character, outfit, weather summary, location and date con
 [07-main-screen-phone.jpg](reference/07-main-screen-phone.jpg)
 
 - Top bar: free-text location search field, with a device-location icon and an info icon beside it (info icon navigates to the Info screen).
-- Character area: character illustration on a weather-reflective background (e.g. sun/cloud/rain cues), current temperature displayed near the top, a short description of current/upcoming sky conditions.
+- Character area: character illustration on a weather-reflective background (e.g. sun/cloud/rain cues), current temperature displayed near the top, a short description of current/upcoming sky conditions. The character stands near the bottom of the scene with a soft ground shadow under the feet (not floating), sized as large as the space allows (revision after usability testing, below).
 - Below the character: an info pill showing precipitation chance and wind speed (always shown), plus sunscreen and hydration icons (shown only when their threshold is triggered).
-- A customization button near the character opens a picker limited to the outfit variations belonging to the current weather category (e.g. the 3 "Cold" variations). Picking one overrides the random default and persists for that date; default on first load of a date is still a random variation from the category.
+- A customization button near the character opens a picker limited to the outfit variations belonging to the current weather category (e.g. the 3 "Cold" variations). Picking one overrides the random default and persists for that date; default on first load of a date is still a random variation from the category. (On laptop the picker is shown inline instead; see Main screen — laptop.)
 - Bottom: a horizontal 7-day strip (today + 6 future days), each day shown as a weather emoji/icon over a date number. Tapping a day selects it as the active date, updating the whole screen (character, pill, description) to that day's recommendation state.
 
 ### Main screen — laptop
@@ -40,9 +40,10 @@ Two screens: **Main** (character, outfit, weather summary, location and date con
 
 Two-column layout using the extra width rather than a stretched phone view:
 
-- Left column: character illustration on weather-reflective background, temperature, customization button — same behavior as phone.
+- Left column: character illustration on weather-reflective background and temperature, as on phone, with the character larger, standing lower, and grounded by a shadow. There is no customization button on laptop: the picker is always visible in the right column (below).
 - Right column, top: location search field with device-location icon and info icon.
 - Right column, middle: info pill — precipitation chance, wind speed (always shown), sunscreen/hydration icons (conditional, same triggers as phone).
+- Right column, lower half (between the info pill and the upcoming days strip): the outfit picker, shown inline instead of behind a button. It lists the 3 outfit variations of the active day's weather category as tiles that scale to fill the available space, with the current one marked (check mark plus border, not color alone); choosing one behaves exactly like the phone picker (overrides and persists for that date). Added after usability testing, where both laptop testers noted a large empty area in the right column (47–65% of its height).
 - Right column, bottom: "upcoming days" strip — same today + 6 future days, weather emoji per day, click to select — same date-selection behavior as phone.
 
 ### Info screen
@@ -52,7 +53,8 @@ Two-column layout using the extra width rather than a stretched phone view:
 One drawing serves both phone and laptop; only the container differs (see Laptop placement below).
 
 - Top: a back button (left arrow) to return to the Main screen.
-- "Created by: Kjartan Knutson-Ho" shown as plain text near the top.
+- "Created by: Kjartan Knutson-Ho" shown as plain text near the top, centered as in the drawing.
+- The four sections sit together in one bordered box with roomy rows (at least 64 px tall on phone), as in the drawing, so the screen is not mostly empty (usability testing note from P3).
 - Four collapsible dropdown sections (collapsed by default, expand on tap/click): **Weather data** (names Open-Meteo), **Methodology** (recommendation methods and sources — temperature bands, UV/precipitation/wind thresholds, per `research.md`), **Privacy practice** (location used only to query Open-Meteo; most recent location saved only in local browser storage; no accounts or other server-side storage), **Art credits** (art is AI-generated; UI icons credited to their open-source library — see Assets). Together with the creator line, these cover all five R16 content items.
 
 **Phone placement:** full screen, replacing the Main screen until the back button is tapped.
@@ -94,8 +96,8 @@ Translate every fixed brief requirement and the selected research-driven feature
 
 ### Outfit customization
 
-- **R9 — Customization picker scoped to current category.** The clothing-customization button opens a picker showing only the outfit variations belonging to the active day's weather category (e.g. only the 3 "Cold" variations when the category is Cold).
-  *Acceptance:* Changing the selected day to a different weather category and reopening the picker shows that category's variations, not the previous category's.
+- **R9 — Customization picker scoped to current category.** On phone, the clothing-customization button opens a picker; on laptop the picker is shown inline in the right column's lower half and there is no button. In both, it shows only the outfit variations belonging to the active day's weather category (e.g. only the 3 "Cold" variations when the category is Cold).
+  *Acceptance:* Changing the selected day to a different weather category and reopening the picker (phone) or looking at the inline picker (laptop) shows that category's variations, not the previous category's; the laptop layout has no customization button.
 - **R10 — Manual pick overrides and persists.** Selecting a variation in the picker replaces the randomly-chosen default for that date and is remembered if the user navigates away and returns to that date in the same session (see Content variation for reload persistence).
   *Acceptance:* After manually picking a variation, switching to another day and back shows the manually picked variation, not a newly randomized one.
 
@@ -190,6 +192,7 @@ Record features intentionally excluded from this project.
 - Metric units (°C, km/h) — the app displays Fahrenheit/mph only; no unit toggle.
 - Past-date weather — only today and the next 6 forecast days are selectable; no historical weather lookup.
 - Hourly forecast detail — recommendations are daily, not broken down by hour. (Hourly data is used internally to compute the daytime values above; no hourly view is shown.)
+- Phone landscape orientation — the phone layout is designed for portrait. Landscape on a phone is left as is (a narrow centered column with a small character), because a web page cannot lock orientation on iPhone Safari, and on Android Chrome only an installed or fullscreen app can; the Developer chose not to add a landscape layout.
 - General character/avatar customization — the customization picker only lets the user choose among the current weather category's outfit variations (R9); no free-form color/accessory/cosmetic customization unrelated to weather.
 - Social sharing or exporting the character/recommendation (e.g. share to social media, download image).
 - Push notifications or reminders outside the app (e.g. a daily alert to check the app) — reminders only display while the app is open.
@@ -200,6 +203,7 @@ After implementation or testing, record requirement changes and the evidence tha
 
 - 2026-10-05 (build, checkpoint 3): Weather inputs are reduced over daytime hours (8:00–20:00 local) instead of using daily highs, because the outfit applies to the hours the user is out. Temperature is the daytime average; precipitation, wind, and UV are daytime maxima. Proposed by the Agent, chosen by the Developer. **Reviewed by the Developer on 2026-10-12: "in order".**
 - 2026-10-05 (build, checkpoint 3b): Added R2a (pick-a-result list for ambiguous searches) at the Developer's request, replacing the plan's "use the top match, no disambiguation UI". Chose a list shown on submit over live typeahead to avoid per-keystroke requests and extra combobox accessibility work. **Reviewed by the Developer on 2026-10-12: "in order".**
+- 2026-10-12 (usability testing, three peer sessions: two on Mac laptops in Chrome, one on an iPhone 17 in Safari): changes chosen by the Developer from the findings. (1) Laptop: the outfit picker moves from a button-and-dialog to an inline panel in the right column's lower half, to use the empty space both laptop testers noted (47% of the column height at 1280x720, 65% at 1920x1080); the customization button is removed on laptop; phone is unchanged (R9 and the laptop screen design updated). (2) The character is larger, stands lower on the scene, and gets a ground shadow, after two of three testers found it "floating". (3) Info screen: "Created by" centered and the four sections grouped in a bordered, roomier box per sketch 09, after P3 noted empty space there. (4) Phone landscape is left as is and added to Out of scope. Not taken up: "background looks flat" and "outfit options more vibrant" (one mention each, would need new art) and gender options for the character (outside the spec's scope; noted for future work). Screen drawing 08 should be redrawn to show the inline picker. **Pending Developer review.**
 - 2026-10-12 (verification): Two changes from verification findings, both chosen by the Developer. (1) R2a now covers inexact matches with a "Did you mean" list: searching "Tokyo" had auto-selected "Tokyo Hill, Texas" (the geocoder's single fuzzy US result), contradicting R2's "non-US term shows location not found" intent. (2) R1's acceptance now says a new location triggers a forecast request for 7 days and a date change reuses the fetched days; the app never refetched on date change, so the old wording described behavior that was not built. **Reviewed by the Developer on 2026-10-12: "in order".**
 - 2026-10-12 (build, after deployment): Weather code changed from Open-Meteo's daily code to a daytime-hourly rule (option D). Evidence: on the deployed app, today's Austin forecast showed "Thunderstorms" and the rainy scene with an 18% rain chance and no umbrella reminder. Open-Meteo's hourly data had a thunderstorm code (95) at 2 pm in the 8 am–8 pm window alongside an 8% chance, so restricting to daytime alone would not have fixed it; the model's code and its probability disagree. New rule is in "Daytime reduction". Chosen by the Developer from four options. **Reviewed by the Developer on 2026-10-12: "in order".**
 - 2026-10-05 (build, checkpoint 6): Info screen content went beyond the spec's wording, based on sources checked during the build: the privacy section also discloses that outfit/reminder choices per date are saved in local storage (not only the last location) and that GitHub Pages may keep standard server logs; the weather-data section states Open-Meteo's CC BY 4.0 license and that its free API is non-commercial only (open-meteo.com/en/terms); the art-credits section credits Lucide (ISC; some icons MIT via Feather, © Cole Bemis) and has a visible placeholder for the AI generation tool, which the Developer must fill in once the art exists. **Reviewed by the Developer on 2026-10-12: "in order".**
